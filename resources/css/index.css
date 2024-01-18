@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap');
+
+body {
+    background-color: #F2F6FF;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    background-image: url("../img/bg.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 1rem;
+}
+
+.main {
+    /* background-color: white; */
+    border-radius: 2rem;
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    padding: 2rem 4rem 3rem 4rem;
+    /* box-shadow: 0px 20px 2.5rem #bfd2ff; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+    backdrop-filter: blur(10.5px);
+    -webkit-backdrop-filter: blur(10.5px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.title__text {
+    margin: 0;
+    font-weight: 200;
+    font-size: 3rem;
+    width: fit-content;
+}
+
+.subtitle {
+    margin: 0;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.color-picker {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.color-picker__input {
+    background-color: white;
+    height: 1.25rem;
+    border: none;
+    width: 300px;
+    max-width: 300px;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.color-picker__input:hover{
+    outline: solid 2px #455EB5;
+}
+
+.color-picker__input:focus-visible {
+    outline: solid 2px #5643CC;
+}
+
+.color-picker__picker {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    height: 60px;
+    width: 56px; 
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.color-picker__picker::-webkit-color-swatch{
+    border-radius: 0.25rem;
+    border: none;
+}
+
+.color-picker__picker::-moz-color-swatch{
+    border-radius: 0.25rem;
+    border: none;
+}
+
+.color-picker__or {
+    margin: 0 0.5rem
+}
+
+.color-box {
+    padding: 16px;
+    margin: 5px;
+    color: white;
+    text-align: center;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 160px;
+    position: relative;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+}
+
+.copy-button {
+    padding: 0.5rem;
+    line-height: 0;
+    border-radius: 4px;
+    top: 4px;
+    right: 4px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.copy-button svg {
+    fill: #FFFFFF;
+}
+
+.copy-button:hover {
+    padding: 0.5rem;
+    cursor: pointer;
+    position: absolute;
+    background: #FFFFFF;
+}
+
+.copy-button:hover svg {
+    fill: #673FD7;
+}
+
+.btn-generate {
+    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    height: 3rem;
+    padding: 0 1.6rem;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.btn-generate:hover {
+    box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+    transition-duration: .1s;
+}
+
+@media (min-width: 768px) {
+    .btn-generate {
+        height: 4rem;
+        padding: 0 2.6rem;
+    }
+}
+
+.colors h3{
+    font-size: 1rem;
+    font-weight: 200;
+    margin-bottom: 0.25rem;
+    font-weight: 400;
+}
+
+.generated-colors {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    display: none;
+    outline: dashed 2px red;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HSL Color Palette Generator</title>
+    <link href="resources/css/index.css" type="text/css" rel="stylesheet">
+    <link rel="icon" href="resources/img/favicon.png">
+</head>
+
+<body>
+    <main class="main">
+        <div class="title-container">
+            <a class="title" href="/">
+                <h1 class="title__text">Color Palette Generator</h1>
+            </a>
+            <h2 class="subtitle">Create Beautiful Color 🎨 Schemes that works </h2>
+        </div>
+        <div class="color-picker">
+            <input type="text" id="hexInput" class="color-picker__input" placeholder="Hexadecimal color code" onclick="addDefaultCharacter()">
+            <div class="color-picker__or">
+                or
+            </div>
+            <input type="color" id="colorPicker" class="color-picker__picker" value="#53a0d6" onclick="show()">
+        </div>
+        <div>
+            <button id="applyHex" class="btn-generate" onclick="show()">Generate 🚀</button>
+        </div>
+
+        <div id="colors" class="colors hidden">
+            <h3>Color Seleccionado</h3>
+            <div id="selectedColor"></div>
+            <h3>Colores más claros</h3>
+            <div id="lighterColors" class="generated-colors"></div>
+            <h3>Colores más oscuros</h3>
+            <div id="darkerColors" class="generated-colors"></div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Made with 💜 by W2M</p>
+    </footer>
+
+    <script src="resources/js/index.js"></script>
+</body>
+
+</html>
