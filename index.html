@@ -11,8 +11,8 @@
 <body>
     <main class="main">
         <div class="title-container">
-            <a class="title" href="https://rismirez.github.io/HSL-Color-Palett-Generator/">
-                <h1 class="title__text">Color Palette Generator</h1>
+            <a class="title" href="/">
+                <h1 class="title__text">HSL Color Palette Generator</h1>
             </a>
             <h2 class="subtitle">Create Beautiful Color 🎨 Schemes that works </h2>
         </div>
@@ -23,8 +23,14 @@
             </div>
             <input type="color" id="colorPicker" class="color-picker__picker" value="#53a0d6" onclick="show()">
         </div>
+
         <div>
             <button id="applyHex" class="btn-generate" onclick="show()">Generate 🚀</button>
+        </div>
+
+        <div id="amount-selector" class="color-amount-selector hidden">
+            <label for="colorAmount">Number of color tones<span id="colorAmountText">3</span></label>
+            <input type="range" id="colorAmount" min="1" max="6" value="3" step="1">
         </div>
 
         <div id="colors" class="colors hidden">
@@ -37,10 +43,12 @@
         </div>
     </main>
     <footer class="footer">
-        <p>Made with 💜 by Rismirez</p>
+        <p>© 2025 | Made with 💜 by Rismirez</p>
     </footer>
 
-    <script src="resources/js/index.js"></script>
+    <script src="resources/js/newjs.js"></script>
+
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rismirez" data-description="Support me on Buy me a coffee!" data-message="If you liked it, leave me your support by inviting me to a cup of coffee." data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
 
 </html>
