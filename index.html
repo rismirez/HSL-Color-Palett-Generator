@@ -33,19 +33,24 @@
             </div>
     
             <div id="step-selector" class="step-selector hidden">
-                <label for="luminosityStep">Luminosity step: <span id="luminosityStepText">10</span></label>
+                <label for="luminosityStep">Lightness step: <span id="luminosityStepText">10</span></label>
                 <input type="range" id="luminosityStep" min="1" max="20" value="10" step="1">
             </div>
         </div>
 
-
         <div id="colors" class="colors hidden">
             <h3>Selected Color</h3>
             <div id="selectedColor"></div>
-            <h3>Lighter colors</h3>
-            <div id="lighterColors" class="generated-colors"></div>
-            <h3>Darker colors</h3>
-            <div id="darkerColors" class="generated-colors"></div>
+            <div class="container-colors">
+                <div class="columns-colors">
+                    <h3>Lighter colors</h3>
+                    <div id="lighterColors" class="generated-colors"></div>
+                </div>
+                <div class="columns-colors">
+                    <h3>Darker colors</h3>
+                    <div id="darkerColors" class="generated-colors"></div>
+                </div>
+            </div>
         </div>
     </main>
     <footer class="footer">
