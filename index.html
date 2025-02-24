@@ -26,10 +26,18 @@
             <button id="applyHex" class="btn-generate" onclick="show()">Generate 🚀</button>
         </div>
 
-        <div id="amount-selector" class="color-amount-selector hidden">
-            <label for="colorAmount">Number of color tones<span id="colorAmountText">3</span></label>
-            <input type="range" id="colorAmount" min="1" max="6" value="3" step="1">
+        <div class="sliders">
+            <div id="amount-selector" class="color-amount-selector hidden">
+                <label for="colorAmount">Number of color tones: <span id="colorAmountText">3</span></label>
+                <input type="range" id="colorAmount" min="1" max="10" value="3" step="1">
+            </div>
+    
+            <div id="step-selector" class="step-selector hidden">
+                <label for="luminosityStep">Luminosity step: <span id="luminosityStepText">10</span></label>
+                <input type="range" id="luminosityStep" min="1" max="20" value="10" step="1">
+            </div>
         </div>
+
 
         <div id="colors" class="colors hidden">
             <h3>Selected Color</h3>

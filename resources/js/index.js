@@ -1,7 +1,8 @@
 // Evento para actualizar los colores cuando el usuario elige un color desde el input tipo color
 document.getElementById('colorPicker').addEventListener('input', function () {
-    let currentAmount = document.getElementById('colorAmount').value;
-    updateColors(this.value, currentAmount);
+    let currentAmount = parseInt(document.getElementById('colorAmount').value);
+    let currentStep = parseInt(document.getElementById('luminosityStep').value);
+    updateColors(this.value, currentAmount, currentStep);
 });
 
 // Evento para aplicar el color introducido en el input hexadecimal al hacer clic en "Aplicar"
@@ -18,27 +19,40 @@ document.getElementById('hexInput').addEventListener('keypress', function (event
 
 // Evento para actualizar la cantidad de colores generados en la paleta
 document.getElementById('colorAmount').addEventListener('input', function () {
-    let colorAmount = this.value;
-    document.getElementById('colorAmountText').innerText = colorAmount; // Actualiza el texto junto al slider
+    let colorAmount = parseInt(this.value);
+    document.getElementById('colorAmountText').innerText = colorAmount;
     let currentColor = document.getElementById('colorPicker').value;
-    updateColors(currentColor, colorAmount);
+    let currentStep = parseInt(document.getElementById('luminosityStep').value);
+    updateColors(currentColor, colorAmount, currentStep);
+});
+
+// Evento para actualizar el paso de luminosidad
+document.getElementById('luminosityStep').addEventListener('input', function () {
+    let step = parseInt(this.value);
+    document.getElementById('luminosityStepText').innerText = step;
+    let currentColor = document.getElementById('colorPicker').value;
+    let currentAmount = parseInt(document.getElementById('colorAmount').value);
+    updateColors(currentColor, currentAmount, step);
 });
 
 // Función para aplicar el color ingresado en el input hexadecimal
 function applyHexColor() {
     let hexValue = document.getElementById('hexInput').value;
-    let currentAmount = document.getElementById('colorAmount').value;
-    updateColors(hexValue, currentAmount);
-    document.getElementById('colorPicker').value = hexValue; // Sincroniza el color picker con el input
+    let currentAmount = parseInt(document.getElementById('colorAmount').value);
+    let currentStep = parseInt(document.getElementById('luminosityStep').value);
+    updateColors(hexValue, currentAmount, currentStep);
+    document.getElementById('colorPicker').value = hexValue;
 }
 
 // Función para actualizar los colores generados
-function updateColors(hexColor, amount) {
+function updateColors(hexColor, amount, step) {
+    amount = parseInt(amount);
+    step = parseInt(step);
     let hslColor = hexToHSL(hexColor);
     displaySelectedColor(hexColor, hslColor);
-    displayColors(hslColor, hexColor, amount);
-    document.getElementById('colorAmount').value = amount; // Mantiene la sincronización del slider
-    document.getElementById('hexInput').value = hexColor; // Sincroniza el input hexadecimal
+    displayColors(hslColor, hexColor, amount, step);
+    document.getElementById('colorAmount').value = amount;
+    document.getElementById('hexInput').value = hexColor;
 }
 
 // Convierte un color HEX a HSL
@@ -112,18 +126,20 @@ function displaySelectedColor(hex, hsl) {
 }
 
 // Genera y muestra la paleta de colores claros y oscuros
-function displayColors(baseHSL, baseHex, amount) {
+function displayColors(baseHSL, baseHex, amount, step) {
     let lighterColors = '';
     let darkerColors = '';
 
-    for (let i = 10; i <= 10 * amount; i += 10) {
-        let { newHSL: lighterHSL, newHex: lighterHex } = adjustLuminosity(baseHSL, i);
+    for (let i = 1; i <= amount; i++) {
+        let luminosityAdjustment = i * step;
+        let { newHSL: lighterHSL, newHex: lighterHex } = adjustLuminosity(baseHSL, luminosityAdjustment);
         let lLighter = parseFloat(lighterHSL.split(',')[2]);
         lighterColors += getColorBoxHTML(lighterHex, lighterHSL, textColorBasedOnBackground(lLighter));
     }
 
-    for (let i = 10; i <= 10 * amount; i += 10) {
-        let { newHSL: darkerHSL, newHex: darkerHex } = adjustLuminosity(baseHSL, -i);
+    for (let i = 1; i <= amount; i++) {
+        let luminosityAdjustment = -i * step;
+        let { newHSL: darkerHSL, newHex: darkerHex } = adjustLuminosity(baseHSL, luminosityAdjustment);
         let lDarker = parseFloat(darkerHSL.split(',')[2]);
         darkerColors += getColorBoxHTML(darkerHex, darkerHSL, textColorBasedOnBackground(lDarker));
     }
@@ -144,6 +160,7 @@ function getColorBoxHTML(hex, hsl, textColor) {
 function show() {
     document.getElementById("colors").classList.remove("hidden");
     document.getElementById("amount-selector").classList.remove("hidden");
+    document.getElementById("step-selector").classList.remove("hidden");
 }
 
 // Añade automáticamente el carácter '#' al input si el usuario olvida ponerlo

@@ -108,6 +108,7 @@ body {
 }
 
 .color-box {
+    font-size: 0.75rem;
     padding: 16px;
     margin: 5px;
     color: white;
@@ -204,10 +205,14 @@ body {
     justify-content: center;
 }
 
+.sliders{
+    display: flex;
+    gap: 3rem;
+}
+
 .color-amount-selector {
-    margin: 20px 0 0 0;
+    width: 100%;
     text-align: center;
-    width: 12.5rem;
     align-self: center;
 }
 
@@ -215,8 +220,11 @@ body {
     width: 100%;
 }
 
-.color-amount-selector span{
-    margin-left: 0.5rem;
+
+.step-selector {
+    width: 100%;
+    text-align: center;
+    align-self: center;
 }
 
 input[type=range]{
