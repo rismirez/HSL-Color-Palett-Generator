@@ -76,9 +76,10 @@ body {
     outline: solid 2px #455EB5;
 }
 
-.color-picker__input:focus-visible {
+/* .color-picker__input:focus {
     outline: solid 2px #5643CC;
-}
+    outline-offset: 4px;
+} */
 
 .color-picker__picker {
     -webkit-appearance: none;
@@ -91,6 +92,16 @@ body {
     background-color: transparent;
     padding: 0;
     margin: 0;
+}
+
+/* .color-picker__picker:focus {
+    outline: solid 2px #5643CC;
+    outline-offset: 2px;
+} */
+
+*:focus{
+    outline: solid 2px #5643CC;
+    outline-offset: 2px;
 }
 
 .color-picker__picker::-webkit-color-swatch{
@@ -145,6 +156,26 @@ body {
     fill: #673FD7;
 }
 
+.btn-random{
+    height: 3.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    border-radius: 0.25rem;
+    border-style: none;
+    fill: green;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #8A42FB;
+    background: #eaddff;
+    margin-left: 8px;
+}
+
+.btn-random:hover{
+    box-shadow: rgba(80, 63, 205, 0.26) 0 1px 30px;
+}
+
 .btn-generate {
     background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
     border-radius: 8px;
@@ -170,6 +201,12 @@ body {
     box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
     transition-duration: .1s;
 }
+
+/* .btn-generate:focus{
+    outline: solid 2px #5643CC;
+    outline-offset: 4px;
+} */
+
 
 @media (min-width: 768px) {
     .btn-generate {

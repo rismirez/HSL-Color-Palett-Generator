@@ -170,3 +170,33 @@ function addDefaultCharacter() {
         input.value = "#" + input.value;
     }
 }
+
+// Nueva función para generar un color aleatorio
+function generateRandomColor() {
+    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    return randomColor;
+}
+
+// Nueva función para actualizar la paleta con un color aleatorio
+function updateWithRandomColor() {
+    const randomColor = generateRandomColor();
+    const currentAmount = parseInt(document.getElementById('colorAmount').value);
+    const currentStep = parseInt(document.getElementById('luminosityStep').value);
+    updateColors(randomColor, currentAmount, currentStep);
+    document.getElementById('colorPicker').value = randomColor;
+    document.getElementById('hexInput').value = randomColor;
+    show(); // Mostramos la paleta de colores
+}
+
+// Evento para el botón de color aleatorio
+document.getElementById('randomColorBtn').addEventListener('click', function () {
+    updateWithRandomColor();
+});
+
+// Evento para generar un nuevo color aleatorio al presionar la barra espaciadora mientras el botón está enfocado
+document.getElementById('randomColorBtn').addEventListener('keydown', function (event) {
+    if (event.key === ' ') {
+        event.preventDefault();
+        updateWithRandomColor();
+    }
+});
