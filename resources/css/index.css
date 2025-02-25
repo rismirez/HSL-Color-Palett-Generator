@@ -20,7 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 1rem;
     text-align: center;
     background: rgba(255, 255, 255, 0.3);
     box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
@@ -108,56 +108,51 @@ body {
     margin: 0 0.5rem
 }
 
-.color-box {
-    font-size: 0.875rem;
-    padding: 8px 24px;
-    color: white;
-    text-align: center;
+#selectedColor .color-box {
     border-radius: 0.5rem;
+}
+
+.generated-colors {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: left;
+    /* gap: 0.25rem; */   
+}
+
+.generated-colors .color-box:first-child {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.generated-colors .color-box:last-child {
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.color-box {
+    align-items: center;
+    border-radius: 0;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    font-size: 0.875rem;
+    height: 36px;
+    justify-content: space-between;
+    padding: 8px 48px 8px 16px;
     position: relative;
+    text-align: center;
 }
 
 .copy-btn {
-    position: absolute;
-    width: 2.25rem;
-    height: 2.25rem;
-    background-color: #FFFFFF;
-    border: none;
+    background-color: transparent;
     border-radius: 0.25rem;
-    top: 10px;
-    right: 8px;
+    border: none;
+    color: currentColor;
+    cursor: pointer;
     font-size: 1.2em;
-    cursor: pointer;
-}
-
-.copy-button {
-    padding: 0.5rem;
-    line-height: 0;
-    border-radius: 4px;
-    top: 4px;
-    right: 4px;
-    cursor: pointer;
+    height: 2.25rem;
     position: absolute;
+    right: 8px;
+    top: 10px;
+    width: 2.25rem;
 }
-
-/* .copy-button svg {
-    fill: #FFFFFF;
-}
-
-.copy-button:hover {
-    padding: 0.5rem;
-    cursor: pointer;
-    position: absolute;
-    background: #FFFFFF;
-}
-
-.copy-button:hover svg {
-    fill: #673FD7;
-} */
 
 .btn-random{
     height: 3.25rem;
@@ -171,12 +166,20 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     color: #8A42FB;
-    background: #eaddff;
+    background: #e7d8fe;
     margin-left: 8px;
+    transition: all 250ms;
 }
 
 .btn-random:hover{
-    box-shadow: rgba(80, 63, 205, 0.26) 0 1px 30px;
+    color: #e7d8fe;
+    background: #8A42FB;
+    box-shadow: rgba(80, 63, 205, 0.555) 0 1px 30px;
+}
+
+.btn-generate-container {
+    display: flex;
+    justify-content: center;
 }
 
 .btn-generate {
@@ -198,6 +201,9 @@ body {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .btn-generate:hover {
@@ -215,23 +221,16 @@ body {
 .colors h3{
     font-size: 1rem;
     font-weight: 200;
-    margin-bottom: 0.25rem;
     font-weight: 400;
 }
 
 .container-colors{
     display: flex;
-    gap: 0.25rem;
+    gap: 1.5rem;
 }
 
 .columns-colors{
     width: 100%;
-}
-
-.generated-colors {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
 }
 
 .hidden {
@@ -242,6 +241,12 @@ body {
 .footer {
     display: flex;
     justify-content: center;
+}
+
+.footer p {
+    align-items: center;
+    display: flex;
+    gap: 4px;
 }
 
 .sliders{
@@ -275,6 +280,10 @@ input[type=range]{
     background-size:70% 100%;
     background-repeat:no-repeat;
     background-color:#fcfcfc
+}
+
+input[type=range]:focus{
+    outline: none;
 }
 
 input[type=range]::-webkit-slider-thumb{
@@ -318,7 +327,35 @@ input[type=range]::-webkit-slider-runnable-track{
     -webkit-appearance:none;
     box-shadow:none;
     border:none;
-    background:rgba(0,0,0,0)
+    background:rgba(0,0,0,0);
 }
 
+.download-buttons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
 
+.btn-download {
+    align-items: center;
+    background: #e7d8fe;
+    border-radius: 0.25rem;
+    border-style: none;
+    color: #8A42FB;
+    display: flex;
+    fill: green;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    gap: 8px;
+    height: 40px;
+    margin-left: 8px;
+    padding: 0 16px;
+    transition: all 250ms;
+}
+
+.btn-download:hover {
+    background: #8A42FB;
+    box-shadow: rgba(80, 63, 205, 0.555) 0 1px 30px;
+    color: #e7d8fe;
+    cursor: pointer;
+}

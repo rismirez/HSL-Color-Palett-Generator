@@ -157,13 +157,14 @@ function copyToClipboard(text) {
     document.execCommand("copy");
     document.body.removeChild(tempInput);
     alert("Hex color copied successfully! 🎨");
-    
 }
 
 // Genera el HTML para mostrar un color en la paleta
 function getColorBoxHTML(hex, hsl, textColor) {
     return `<div class="color-box" style="background-color: ${hex}; color: ${textColor};">
-                <button class="copy-btn" onclick="copyToClipboard('${hex}')">📋</button>
+                <button class="copy-btn" onclick="copyToClipboard('${hex}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6Z"></path></svg>
+                </button>
                 <div>HSL: ${hsl}</div>
                 <div>HEX: ${hex}</div>
             </div>`;
@@ -198,7 +199,230 @@ function updateWithRandomColor() {
     updateColors(randomColor, currentAmount, currentStep);
     document.getElementById('colorPicker').value = randomColor;
     document.getElementById('hexInput').value = randomColor;
-    show(); // Mostramos la paleta de colores
+    show();
+}
+
+// Nueva función para descargar la paleta como SVG con fuente monospace
+function downloadPaletteAsSVG() {
+    const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
+    const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
+    const darkerColorsDiv = document.getElementById('darkerColors').querySelectorAll('.color-box');
+
+    const selectedColor = {
+        hex: selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: selectedColorDiv.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    };
+    const lighterColors = Array.from(lighterColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
+    const darkerColors = Array.from(darkerColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
+
+    const rectHeight = 100;
+    const rectWidth = 200;
+    const textOffset = 20;
+    const totalColors = 1 + lighterColors.length + darkerColors.length;
+    const svgHeight = totalColors * (rectHeight + textOffset * 2) + 20;
+    const svgWidth = rectWidth + 20;
+
+    let svgContent = `<svg width="${svgWidth}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">`;
+    svgContent += `<rect x="10" y="10" width="${rectWidth}" height="${rectHeight}" fill="${selectedColor.hex}" />`;
+    svgContent += `<text x="10" y="${rectHeight + textOffset}" fill="black" font-family="monospace">HEX: ${selectedColor.hex}</text>`;
+    svgContent += `<text x="10" y="${rectHeight + textOffset * 2}" fill="black" font-family="monospace">HSL: ${selectedColor.hsl}</text>`;
+
+    lighterColors.forEach((color, index) => {
+        const yOffset = (index + 1) * (rectHeight + textOffset * 2) + 10;
+        svgContent += `<rect x="10" y="${yOffset}" width="${rectWidth}" height="${rectHeight}" fill="${color.hex}" />`;
+        svgContent += `<text x="10" y="${yOffset + rectHeight + textOffset}" fill="black" font-family="monospace">HEX: ${color.hex}</text>`;
+        svgContent += `<text x="10" y="${yOffset + rectHeight + textOffset * 2}" fill="black" font-family="monospace">HSL: ${color.hsl}</text>`;
+    });
+
+    darkerColors.forEach((color, index) => {
+        const yOffset = (index + lighterColors.length + 1) * (rectHeight + textOffset * 2) + 10;
+        svgContent += `<rect x="10" y="${yOffset}" width="${rectWidth}" height="${rectHeight}" fill="${color.hex}" />`;
+        svgContent += `<text x="10" y="${yOffset + rectHeight + textOffset}" fill="black" font-family="monospace">HEX: ${color.hex}</text>`;
+        svgContent += `<text x="10" y="${yOffset + rectHeight + textOffset * 2}" fill="black" font-family="monospace">HSL: ${color.hsl}</text>`;
+    });
+
+    svgContent += `</svg>`;
+
+    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'color-palette.svg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+}
+
+// Nueva función para descargar la paleta como TXT
+function downloadPaletteAsTXT() {
+    const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
+    const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
+    const darkerColorsDiv = document.getElementById('darkerColors').querySelectorAll('.color-box');
+
+    const selectedColor = {
+        hex: selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: selectedColorDiv.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    };
+    const lighterColors = Array.from(lighterColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
+    const darkerColors = Array.from(darkerColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
+
+    let txtContent = "Color Palette\n\n";
+    txtContent += "Selected Color:\n";
+    txtContent += `HEX: ${selectedColor.hex}\n`;
+    txtContent += `HSL: ${selectedColor.hsl}\n\n`;
+
+    txtContent += "Lighter Colors:\n";
+    lighterColors.forEach((color, index) => {
+        txtContent += `Tone ${index + 1}:\n`;
+        txtContent += `HEX: ${color.hex}\n`;
+        txtContent += `HSL: ${color.hsl}\n`;
+    });
+
+    txtContent += "\nDarker Colors:\n";
+    darkerColors.forEach((color, index) => {
+        txtContent += `Tone ${index + 1}:\n`;
+        txtContent += `HEX: ${color.hex}\n`;
+        txtContent += `HSL: ${color.hsl}\n`;
+    });
+
+    const blob = new Blob([txtContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'color-palette.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+}
+
+// Nueva función para descargar la paleta como JSON
+function downloadPaletteAsJSON() {
+    const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
+    const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
+    const darkerColorsDiv = document.getElementById('darkerColors').querySelectorAll('.color-box');
+
+    const selectedColor = {
+        hex: selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: selectedColorDiv.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    };
+    const lighterColors = Array.from(lighterColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
+    const darkerColors = Array.from(darkerColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
+
+    const paletteData = {
+        selectedColor: selectedColor,
+        lighterColors: lighterColors,
+        darkerColors: darkerColors
+    };
+
+    const jsonContent = JSON.stringify(paletteData, null, 2); // Formato legible con indentación
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'color-palette.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+}
+
+// Nueva función para descargar la paleta como CSS
+function downloadPaletteAsCSS() {
+    const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
+    const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
+    const darkerColorsDiv = document.getElementById('darkerColors').querySelectorAll('.color-box');
+
+    const selectedColorHex = selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', '');
+    const lighterColorsHex = Array.from(lighterColorsDiv).map(div => div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''));
+    const darkerColorsHex = Array.from(darkerColorsDiv).map(div => div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''));
+
+    let cssContent = `:root {\n`;
+    cssContent += `  --selected-color: ${selectedColorHex};\n`;
+    lighterColorsHex.forEach((hex, index) => {
+        cssContent += `  --lighter-color-${index + 1}: ${hex};\n`;
+    });
+    darkerColorsHex.forEach((hex, index) => {
+        cssContent += `  --darker-color-${index + 1}: ${hex};\n`;
+    });
+    cssContent += `}\n\n`;
+
+    cssContent += `/* Ejemplos de uso */\n`;
+    cssContent += `.bg-selected { background-color: var(--selected-color); }\n`;
+    lighterColorsHex.forEach((_, index) => {
+        cssContent += `.bg-lighter-${index + 1} { background-color: var(--lighter-color-${index + 1}); }\n`;
+    });
+    darkerColorsHex.forEach((_, index) => {
+        cssContent += `.bg-darker-${index + 1} { background-color: var(--darker-color-${index + 1}); }\n`;
+    });
+
+    const blob = new Blob([cssContent], { type: 'text/css' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'color-palette.css';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+}
+
+// Nueva función para descargar la paleta como SCSS
+function downloadPaletteAsSCSS() {
+    const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
+    const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
+    const darkerColorsDiv = document.getElementById('darkerColors').querySelectorAll('.color-box');
+
+    const selectedColorHex = selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', '');
+    const lighterColorsHex = Array.from(lighterColorsDiv).map(div => div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''));
+    const darkerColorsHex = Array.from(darkerColorsDiv).map(div => div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''));
+
+    let scssContent = `$selected-color: ${selectedColorHex};\n`;
+    lighterColorsHex.forEach((hex, index) => {
+        scssContent += `$lighter-color-${index + 1}: ${hex};\n`;
+    });
+    darkerColorsHex.forEach((hex, index) => {
+        scssContent += `$darker-color-${index + 1}: ${hex};\n`;
+    });
+    scssContent += `\n`;
+
+    scssContent += `// Ejemplos de uso\n`;
+    scssContent += `.bg-selected { background-color: $selected-color; }\n`;
+    lighterColorsHex.forEach((_, index) => {
+        scssContent += `.bg-lighter-${index + 1} { background-color: $lighter-color-${index + 1}; }\n`;
+    });
+    darkerColorsHex.forEach((_, index) => {
+        scssContent += `.bg-darker-${index + 1} { background-color: $darker-color-${index + 1}; }\n`;
+    });
+
+    const blob = new Blob([scssContent], { type: 'text/scss' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'color-palette.scss';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
 }
 
 // Evento para el botón de color aleatorio
@@ -212,4 +436,26 @@ document.getElementById('randomColorBtn').addEventListener('keydown', function (
         event.preventDefault();
         updateWithRandomColor();
     }
+});
+
+// Eventos para los botones de descarga
+document.getElementById('downloadSvgBtn').addEventListener('click', function () {
+    downloadPaletteAsSVG();
+});
+
+document.getElementById('downloadTxtBtn').addEventListener('click', function () {
+    downloadPaletteAsTXT();
+});
+
+document.getElementById('downloadJsonBtn').addEventListener('click', function () {
+    downloadPaletteAsJSON();
+});
+
+// Eventos para los botones de descarga
+document.getElementById('downloadCssBtn').addEventListener('click', function () {
+    downloadPaletteAsCSS();
+});
+
+document.getElementById('downloadScssBtn').addEventListener('click', function () {
+    downloadPaletteAsSCSS();
 });
