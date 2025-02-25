@@ -148,9 +148,22 @@ function displayColors(baseHSL, baseHex, amount, step) {
     document.getElementById('darkerColors').innerHTML = darkerColors;
 }
 
+// Función para copiar el código hexadecimal al portapapeles
+function copyToClipboard(text) {
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = text;
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("Hex color copied successfully! 🎨");
+    
+}
+
 // Genera el HTML para mostrar un color en la paleta
 function getColorBoxHTML(hex, hsl, textColor) {
     return `<div class="color-box" style="background-color: ${hex}; color: ${textColor};">
+                <button class="copy-btn" onclick="copyToClipboard('${hex}')">📋</button>
                 <div>HSL: ${hsl}</div>
                 <div>HEX: ${hex}</div>
             </div>`;
