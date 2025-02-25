@@ -76,11 +76,6 @@ body {
     outline: solid 2px #455EB5;
 }
 
-/* .color-picker__input:focus {
-    outline: solid 2px #5643CC;
-    outline-offset: 4px;
-} */
-
 .color-picker__picker {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -93,11 +88,6 @@ body {
     padding: 0;
     margin: 0;
 }
-
-/* .color-picker__picker:focus {
-    outline: solid 2px #5643CC;
-    outline-offset: 2px;
-} */
 
 *:focus{
     outline: solid 2px #5643CC;
@@ -201,12 +191,6 @@ body {
     box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
     transition-duration: .1s;
 }
-
-/* .btn-generate:focus{
-    outline: solid 2px #5643CC;
-    outline-offset: 4px;
-} */
-
 
 @media (min-width: 768px) {
     .btn-generate {
