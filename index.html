@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HSL Color Palette Generator</title>
     <link href="resources/css/index.css" type="text/css" rel="stylesheet">
     <link rel="icon" href="resources/img/favicon.png">
@@ -10,73 +11,127 @@
 
 <body>
     <main class="main">
-        <div class="title-container">
-            <h1 class="title__text">HSL Color Palette Generator</h1>
-            <h2 class="subtitle">Create Beautiful Color 🎨 Schemes that works </h2>
-        </div>
-        <div class="color-picker">
-            <input type="text" id="hexInput" class="color-picker__input" placeholder="Hexadecimal color code" onclick="addDefaultCharacter()">
-            <div class="color-picker__or">
-                or
-            </div>
-            <input type="color" id="colorPicker" class="color-picker__picker" value="#53a0d6" onclick="show()">
-            <div class="color-picker__or">
-                or
-            </div>
-            <button id="randomColorBtn" class="btn-random">
-                Random color
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M10.9979 1.58018C11.6178 1.22132 12.3822 1.22132 13.0021 1.58018L20.5021 5.92229C21.1197 6.27987 21.5 6.93946 21.5 7.65314V16.3469C21.5 17.0606 21.1197 17.7202 20.5021 18.0778L13.0021 22.4199C12.3822 22.7788 11.6178 22.7788 10.9979 22.4199L3.49793 18.0778C2.88029 17.7202 2.5 17.0606 2.5 16.3469V7.65314C2.5 6.93947 2.88029 6.27987 3.49793 5.92229L10.9979 1.58018ZM4.5 7.65314V7.65792L11.0021 11.4223C11.6197 11.7799 12 12.4395 12 13.1531V20.689L19.5 16.3469V7.65314L12 3.31104L4.5 7.65314ZM6.13208 12.3C6.13206 11.7477 5.74432 11.0761 5.26604 10.7999C4.78776 10.5238 4.40004 10.7476 4.40006 11.2999C4.40008 11.8522 4.78782 12.5238 5.2661 12.7999C5.74439 13.0761 6.1321 12.8523 6.13208 12.3ZM8.72899 18.7982C9.20728 19.0743 9.59499 18.8505 9.59497 18.2982C9.59495 17.7459 9.20721 17.0743 8.72893 16.7982C8.25065 16.522 7.86293 16.7459 7.86295 17.2982C7.86297 17.8504 8.25071 18.522 8.72899 18.7982ZM5.2661 16.799C5.74439 17.0751 6.1321 16.8513 6.13208 16.299C6.13206 15.7467 5.74432 15.0751 5.26604 14.799C4.78776 14.5228 4.40004 14.7467 4.40006 15.2989C4.40008 15.8512 4.78782 16.5228 5.2661 16.799ZM8.72851 14.7995C9.20679 15.0756 9.5945 14.8518 9.59448 14.2995C9.59446 13.7472 9.20673 13.0756 8.72844 12.7995C8.25016 12.5233 7.86245 12.7471 7.86246 13.2994C7.86248 13.8517 8.25022 14.5233 8.72851 14.7995ZM14.8979 8.00001C15.3762 7.72388 15.3762 7.27619 14.8979 7.00006C14.4196 6.72394 13.6441 6.72394 13.1658 7.00006C12.6875 7.27619 12.6875 7.72388 13.1658 8.00001C13.6441 8.27614 14.4196 8.27614 14.8979 8.00001ZM10.0981 7.00006C10.5764 7.27619 10.5764 7.72388 10.0981 8.00001C9.61982 8.27614 8.84434 8.27614 8.36604 8.00001C7.88774 7.72388 7.88774 7.27619 8.36604 7.00006C8.84434 6.72394 9.61982 6.72394 10.0981 7.00006ZM15.9954 15.3495C16.5932 15.0043 17.0779 14.1649 17.0779 13.4745C17.0779 12.7842 16.5933 12.5044 15.9955 12.8496C15.3977 13.1948 14.9131 14.0342 14.913 14.7246C14.913 15.4149 15.3976 15.6947 15.9954 15.3495Z"></path></svg>
-            </button>
-        </div>
-
-        <div class="btn-generate-container">
-            <button id="applyHex" class="btn-generate" onclick="show()">
-                Generate
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M5.7646 7.99998L5.46944 7.26944C5.26255 6.75737 5.50995 6.17454 6.02202 5.96765L15.2939 2.22158C15.8059 2.01469 16.3888 2.26209 16.5956 2.77416L22.2147 16.6819C22.4216 17.194 22.1742 17.7768 21.6622 17.9837L12.3903 21.7298C11.8783 21.9367 11.2954 21.6893 11.0885 21.1772L11.0002 20.9586V21H7.00021C6.44792 21 6.00021 20.5523 6.00021 20V19.7303L2.65056 18.377C2.13849 18.1701 1.89109 17.5873 2.09798 17.0752L5.7646 7.99998ZM8.00021 19H10.2089L8.00021 13.5333V19ZM6.00021 12.7558L4.32696 16.8972L6.00021 17.6084V12.7558ZM7.69842 7.44741L12.5683 19.5008L19.9858 16.5039L15.1159 4.45055L7.69842 7.44741ZM10.6766 9.47974C10.1645 9.68663 9.5817 9.43924 9.37481 8.92717C9.16792 8.4151 9.41532 7.83227 9.92739 7.62538C10.4395 7.41849 11.0223 7.66588 11.2292 8.17795C11.4361 8.69002 11.1887 9.27286 10.6766 9.47974Z"></path></svg>
-            </button>
-        </div>
-
-        <div class="sliders">
-            <div id="amount-selector" class="color-amount-selector hidden">
-                <label for="colorAmount">Number of color tones: <span id="colorAmountText">3</span></label>
-                <input type="range" id="colorAmount" min="1" max="10" value="3" step="1">
-            </div>
-    
-            <div id="step-selector" class="step-selector hidden">
-                <label for="luminosityStep">Lightness step: <span id="luminosityStepText">10</span></label>
-                <input type="range" id="luminosityStep" min="1" max="20" value="10" step="1">
-            </div>
-        </div>
-
-        <div id="colors" class="colors hidden">
-            <h3>Selected Color</h3>
-            <div id="selectedColor"></div>
-            <div class="container-colors">
-                <div class="columns-colors">
-                    <h3>Lighter colors</h3>
-                    <div id="lighterColors" class="generated-colors"></div>
+        <header class="header">
+            <h1 class="header__title">HSL Color Palette Generator</h1>
+            <h2 class="header__subtitle">Create Beautiful Color 🎨 Schemes that works</h2>
+        </header>
+        <aside class="aside">
+            <div class="aside__select-color">
+                <div class="color-picker">
+                    <div class="color-picker__title">
+                        <h3>Select color</h3>
+                        <small>Enter a hex color or pick one from the color picker.</small>
+                    </div>
+                    <div class="color-picker__controls">
+                        <input type="text" id="hexInput" class="color-picker__input" placeholder="Hexadecimal color code" onclick="addDefaultCharacter()">
+                        <div class="color-picker__separator">or</div>
+                        <input type="color" id="colorPicker" value="#8a42fb" class="color-picker__picker">
+                    </div>
                 </div>
-                <div class="columns-colors">
-                    <h3>Darker colors</h3>
-                    <div id="darkerColors" class="generated-colors"></div>
+                <div class="button-group">
+                    <div class="button-group__generate">
+                        <button id="applyHex" class="button button--generate">
+                            Generate
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M5.7646 7.99998L5.46944 7.26944C5.26255 6.75737 5.50995 6.17454 6.02202 5.96765L15.2939 2.22158C15.8059 2.01469 16.3888 2.26209 16.5956 2.77416L22.2147 16.6819C22.4216 17.194 22.1742 17.7768 21.6622 17.9837L12.3903 21.7298C11.8783 21.9367 11.2954 21.6893 11.0885 21.1772L11.0002 20.9586V21H7.00021C6.44792 21 6.00021 20.5523 6.00021 20V19.7303L2.65056 18.377C2.13849 18.1701 1.89109 17.5873 2.09798 17.0752L5.7646 7.99998ZM8.00021 19H10.2089L8.00021 13.5333V19ZM6.00021 12.7558L4.32696 16.8972L6.00021 17.6084V12.7558ZM7.69842 7.44741L12.5683 19.5008L19.9858 16.5039L15.1159 4.45055L7.69842 7.44741ZM10.6766 9.47974C10.1645 9.68663 9.5817 9.43924 9.37481 8.92717C9.16792 8.4151 9.41532 7.83227 9.92739 7.62538C10.4395 7.41849 11.0223 7.66588 11.2292 8.17795C11.4361 8.69002 11.1887 9.27286 10.6766 9.47974Z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="button-group__random">
+                        <button id="randomColorBtn" class="button button--outline">
+                            Random color
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                <path d="M10.9979 1.58018C11.6178 1.22132 12.3822 1.22132 13.0021 1.58018L20.5021 5.92229C21.1197 6.27987 21.5 6.93946 21.5 7.65314V16.3469C21.5 17.0606 21.1197 17.7202 20.5021 18.0778L13.0021 22.4199C12.3822 22.7788 11.6178 22.7788 10.9979 22.4199L3.49793 18.0778C2.88029 17.7202 2.5 17.0606 2.5 16.3469V7.65314C2.5 6.93947 2.88029 6.27987 3.49793 5.92229L10.9979 1.58018ZM4.5 7.65314V7.65792L11.0021 11.4223C11.6197 11.7799 12 12.4395 12 13.1531V20.689L19.5 16.3469V7.65314L12 3.31104L4.5 7.65314ZM6.13208 12.3C6.13206 11.7477 5.74432 11.0761 5.26604 10.7999C4.78776 10.5238 4.40004 10.7476 4.40006 11.2999C4.40008 11.8522 4.78782 12.5238 5.2661 12.7999C5.74439 13.0761 6.1321 12.8523 6.13208 12.3ZM8.72899 18.7982C9.20728 19.0743 9.59499 18.8505 9.59497 18.2982C9.59495 17.7459 9.20721 17.0743 8.72893 16.7982C8.25065 16.522 7.86293 16.7459 7.86295 17.2982C7.86297 17.8504 8.25071 18.522 8.72899 18.7982ZM5.2661 16.799C5.74439 17.0751 6.1321 16.8513 6.13208 16.299C6.13206 15.7467 5.74432 15.0751 5.26604 14.799C4.78776 14.5228 4.40004 14.7467 4.40006 15.2989C4.40008 15.8512 4.78782 16.5228 5.2661 16.799ZM8.72851 14.7995C9.20679 15.0756 9.5945 14.8518 9.59448 14.2995C9.59446 13.7472 9.20673 13.0756 8.72844 12.7995C8.25016 12.5233 7.86245 12.7471 7.86246 13.2994C7.86248 13.8517 8.25022 14.5233 8.72851 14.7995ZM14.8979 8.00001C15.3762 7.72388 15.3762 7.27619 14.8979 7.00006C14.4196 6.72394 13.6441 6.72394 13.1658 7.00006C12.6875 7.27619 12.6875 7.72388 13.1658 8.00001C13.6441 8.27614 14.4196 8.27614 14.8979 8.00001ZM10.0981 7.00006C10.5764 7.27619 10.5764 7.72388 10.0981 8.00001C9.61982 8.27614 8.84434 8.27614 8.36604 8.00001C7.88774 7.72388 7.88774 7.27619 8.36604 7.00006C8.84434 6.72394 9.61982 6.72394 10.0981 7.00006ZM15.9954 15.3495C16.5932 15.0043 17.0779 14.1649 17.0779 13.4745C17.0779 12.7842 16.5933 12.5044 15.9955 12.8496C15.3977 13.1948 14.9131 14.0342 14.913 14.7246C14.913 15.4149 15.3976 15.6947 15.9954 15.3495Z"></path>
+                            </svg>
+                        </button>
+                        <small>Generate random color</small>
+                    </div>
                 </div>
             </div>
-            <div class="download-buttons">
-                <button id="downloadSvgBtn" class="btn-download">Download as SVG <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path></svg></button>
-                <button id="downloadTxtBtn" class="btn-download">Download as TXT <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path></svg></button>
-                <button id="downloadJsonBtn" class="btn-download">Download as JSON <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path></svg></button>
-                <button id="downloadCssBtn" class="btn-download">Download as CSS <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path></svg></button>
-                <button id="downloadScssBtn" class="btn-download">Download as SCSS <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path></svg></button>
+            <hr>
+            <div id="settings" class="aside__settings">
+                <button class="settings__toggle" aria-expanded="false" aria-controls="settings-content">
+                    <h3 class="settings__title">Settings</h3>
+                    <svg class="settings__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"></path>
+                    </svg>
+                </button>
+                <div id="settings-content" class="settings__content">
+                    <div class="settings__amount">
+                        <label for="colorAmount">Number of color tones: <span id="colorAmountText">5</span></label>
+                        <small>Number of colors per shade Lighter and Darker</small>
+                        <input type="range" id="colorAmount" min="1" max="10" value="5" step="1">
+                    </div>
+                    <div class="settings__step">
+                        <label for="luminosityStep">Lightness step: <span id="luminosityStepText">5</span><span>%</span></label>
+                        <small>Percentage of Lightness</small>
+                        <input type="range" id="luminosityStep" min="1" max="20" value="5" step="1">
+                    </div>
+                    <div class="settings__tips">
+                        <p>💡 Tips:</p>
+                        <p>If you increase the 'Number of color tones,' a smaller 'Lightness step' works best to keep the palette balanced.</p>
+                        <p><a href="https://color.adobe.com/es/create/color-contrast-analyzer" target="_blank">WCAG 2.1 Color contrast analyzer</a></p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </aside>
+        <article class="article">
+            <div id="colors" class="colors">
+                <h3 class="colors__title">Selected Color</h3>
+                <div id="selectedColor" class="colors__selected"></div>
+                <div class="colors__container">
+                    <div class="colors__column">
+                        <h3 class="colors__column__title">Lighter colors</h3>
+                        <div id="lighterColors" class="colors__generated"></div>
+                    </div>
+                    <div class="colors__column">
+                        <h3 class="colors__column__title">Darker colors</h3>
+                        <div id="darkerColors" class="colors__generated"></div>
+                    </div>
+                </div>
+                <div class="colors__download">
+                    <button id="downloadSvgBtn" class="button button--outline">Download SVG 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path>
+                        </svg>
+                    </button>
+                    <button id="downloadTxtBtn" class="button button--outline">Download TXT 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path>
+                        </svg>
+                    </button>
+                    <button id="downloadJsonBtn" class="button button--outline">Download JSON 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path>
+                        </svg>
+                    </button>
+                    <button id="downloadCssBtn" class="button button--outline">Download CSS 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path>
+                        </svg>
+                    </button>
+                    <button id="downloadScssBtn" class="button button--outline">Download SCSS 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M3 19H21V21H3V19ZM13 13.1716L19.0711 7.1005L20.4853 8.51472L12 17L3.51472 8.51472L4.92893 7.1005L11 13.1716V2H13V13.1716Z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </article>
+        <footer class="footer">
+            <p class="footer__text">© 2025 | Made with 
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M16.5 3C19.5376 3 22 5.5 22 9C22 16 14.5 20 12 21.5C9.5 20 2 16 2 9C2 5.5 4.5 3 7.5 3C9.35997 3 11 4 12 5C13 4 14.64 3 16.5 3Z"></path>
+                </svg> 
+                by Rismirez
+            </p>
+        </footer>
     </main>
-    <footer class="footer">
-        <p>© 2025 | Made with <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M16.5 3C19.5376 3 22 5.5 22 9C22 16 14.5 20 12 21.5C9.5 20 2 16 2 9C2 5.5 4.5 3 7.5 3C9.35997 3 11 4 12 5C13 4 14.64 3 16.5 3Z"></path></svg> by Rismirez</p>
-    </footer>
-
     <script src="resources/js/index.js"></script>
-
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rismirez" data-description="Support me on Buy me a coffee!" data-message="If you liked it, leave me your support by inviting me to a cup of coffee." data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+        data-id="rismirez" data-description="Support me on Buy me a coffee!"
+        data-message="If you liked it, leave me your support by inviting me to a cup of coffee." data-color="#FF813F"
+        data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
 
 </html>

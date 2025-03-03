@@ -1,11 +1,11 @@
 // Evento para actualizar los colores cuando el usuario elige un color desde el input tipo color
 document.getElementById('colorPicker').addEventListener('input', function () {
-    let currentAmount = parseInt(document.getElementById('colorAmount').value);
-    let currentStep = parseInt(document.getElementById('luminosityStep').value);
+    const currentAmount = parseInt(document.getElementById('colorAmount').value);
+    const currentStep = parseInt(document.getElementById('luminosityStep').value);
     updateColors(this.value, currentAmount, currentStep);
 });
 
-// Evento para aplicar el color introducido en el input hexadecimal al hacer clic en "Aplicar"
+// Evento para aplicar el color introducido en el input hexadecimal al hacer clic en "Generate"
 document.getElementById('applyHex').addEventListener('click', function () {
     applyHexColor();
 });
@@ -19,27 +19,34 @@ document.getElementById('hexInput').addEventListener('keypress', function (event
 
 // Evento para actualizar la cantidad de colores generados en la paleta
 document.getElementById('colorAmount').addEventListener('input', function () {
-    let colorAmount = parseInt(this.value);
+    const colorAmount = parseInt(this.value);
     document.getElementById('colorAmountText').innerText = colorAmount;
-    let currentColor = document.getElementById('colorPicker').value;
-    let currentStep = parseInt(document.getElementById('luminosityStep').value);
+    const currentColor = document.getElementById('colorPicker').value;
+    const currentStep = parseInt(document.getElementById('luminosityStep').value);
     updateColors(currentColor, colorAmount, currentStep);
 });
 
 // Evento para actualizar el paso de luminosidad
 document.getElementById('luminosityStep').addEventListener('input', function () {
-    let step = parseInt(this.value);
+    const step = parseInt(this.value);
     document.getElementById('luminosityStepText').innerText = step;
-    let currentColor = document.getElementById('colorPicker').value;
-    let currentAmount = parseInt(document.getElementById('colorAmount').value);
+    const currentColor = document.getElementById('colorPicker').value;
+    const currentAmount = parseInt(document.getElementById('colorAmount').value);
     updateColors(currentColor, currentAmount, step);
 });
 
-// Función para aplicar el color ingresado en el input hexadecimal
+// Función para aplicar el color ingresado en el input hexadecimal o usar el valor por defecto
 function applyHexColor() {
-    let hexValue = document.getElementById('hexInput').value;
-    let currentAmount = parseInt(document.getElementById('colorAmount').value);
-    let currentStep = parseInt(document.getElementById('luminosityStep').value);
+    let hexValue = document.getElementById('hexInput').value.trim();
+    const defaultColor = document.getElementById('colorPicker').getAttribute('value') || '#8a42fb';
+    const currentAmount = parseInt(document.getElementById('colorAmount').value);
+    const currentStep = parseInt(document.getElementById('luminosityStep').value);
+
+    if (!hexValue || !/^#[0-9A-F]{6}$/i.test(hexValue)) {
+        hexValue = defaultColor;
+        document.getElementById('hexInput').value = hexValue;
+    }
+
     updateColors(hexValue, currentAmount, currentStep);
     document.getElementById('colorPicker').value = hexValue;
 }
@@ -48,7 +55,7 @@ function applyHexColor() {
 function updateColors(hexColor, amount, step) {
     amount = parseInt(amount);
     step = parseInt(step);
-    let hslColor = hexToHSL(hexColor);
+    const hslColor = hexToHSL(hexColor);
     displaySelectedColor(hexColor, hslColor);
     displayColors(hslColor, hexColor, amount, step);
     document.getElementById('colorAmount').value = amount;
@@ -120,8 +127,8 @@ function textColorBasedOnBackground(l) {
 
 // Muestra el color seleccionado
 function displaySelectedColor(hex, hsl) {
-    let l = parseFloat(hsl.split(',')[2]);
-    let textColor = textColorBasedOnBackground(l);
+    const l = parseFloat(hsl.split(',')[2]);
+    const textColor = textColorBasedOnBackground(l);
     document.getElementById('selectedColor').innerHTML = getColorBoxHTML(hex, hsl, textColor);
 }
 
@@ -131,16 +138,16 @@ function displayColors(baseHSL, baseHex, amount, step) {
     let darkerColors = '';
 
     for (let i = 1; i <= amount; i++) {
-        let luminosityAdjustment = i * step;
-        let { newHSL: lighterHSL, newHex: lighterHex } = adjustLuminosity(baseHSL, luminosityAdjustment);
-        let lLighter = parseFloat(lighterHSL.split(',')[2]);
+        const luminosityAdjustment = i * step;
+        const { newHSL: lighterHSL, newHex: lighterHex } = adjustLuminosity(baseHSL, luminosityAdjustment);
+        const lLighter = parseFloat(lighterHSL.split(',')[2]);
         lighterColors += getColorBoxHTML(lighterHex, lighterHSL, textColorBasedOnBackground(lLighter));
     }
 
     for (let i = 1; i <= amount; i++) {
-        let luminosityAdjustment = -i * step;
-        let { newHSL: darkerHSL, newHex: darkerHex } = adjustLuminosity(baseHSL, luminosityAdjustment);
-        let lDarker = parseFloat(darkerHSL.split(',')[2]);
+        const luminosityAdjustment = -i * step;
+        const { newHSL: darkerHSL, newHex: darkerHex } = adjustLuminosity(baseHSL, luminosityAdjustment);
+        const lDarker = parseFloat(darkerHSL.split(',')[2]);
         darkerColors += getColorBoxHTML(darkerHex, darkerHSL, textColorBasedOnBackground(lDarker));
     }
 
@@ -170,28 +177,21 @@ function getColorBoxHTML(hex, hsl, textColor) {
             </div>`;
 }
 
-// Muestra la sección de colores generados
-function show() {
-    document.getElementById("colors").classList.remove("hidden");
-    document.getElementById("amount-selector").classList.remove("hidden");
-    document.getElementById("step-selector").classList.remove("hidden");
-}
-
 // Añade automáticamente el carácter '#' al input si el usuario olvida ponerlo
 function addDefaultCharacter() {
-    var input = document.getElementById("hexInput");
+    const input = document.getElementById("hexInput");
     if (!input.value.startsWith("#")) {
         input.value = "#" + input.value;
     }
 }
 
-// Nueva función para generar un color aleatorio
+// Función para generar un color aleatorio
 function generateRandomColor() {
     const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
     return randomColor;
 }
 
-// Nueva función para actualizar la paleta con un color aleatorio
+// Función para actualizar la paleta con un color aleatorio
 function updateWithRandomColor() {
     const randomColor = generateRandomColor();
     const currentAmount = parseInt(document.getElementById('colorAmount').value);
@@ -199,10 +199,9 @@ function updateWithRandomColor() {
     updateColors(randomColor, currentAmount, currentStep);
     document.getElementById('colorPicker').value = randomColor;
     document.getElementById('hexInput').value = randomColor;
-    show();
 }
 
-// Nueva función para descargar la paleta como SVG con fuente monospace
+// Función para descargar la paleta como SVG con fuente monospace
 function downloadPaletteAsSVG() {
     const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
     const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
@@ -260,7 +259,7 @@ function downloadPaletteAsSVG() {
     window.URL.revokeObjectURL(url);
 }
 
-// Nueva función para descargar la paleta como TXT
+// Función para descargar la paleta como TXT
 function downloadPaletteAsTXT() {
     const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
     const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
@@ -309,7 +308,7 @@ function downloadPaletteAsTXT() {
     window.URL.revokeObjectURL(url);
 }
 
-// Nueva función para descargar la paleta como JSON
+// Función para descargar la paleta como JSON
 function downloadPaletteAsJSON() {
     const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
     const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
@@ -334,7 +333,7 @@ function downloadPaletteAsJSON() {
         darkerColors: darkerColors
     };
 
-    const jsonContent = JSON.stringify(paletteData, null, 2); // Formato legible con indentación
+    const jsonContent = JSON.stringify(paletteData, null, 2);
     const blob = new Blob([jsonContent], { type: 'application/json' });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -346,7 +345,7 @@ function downloadPaletteAsJSON() {
     window.URL.revokeObjectURL(url);
 }
 
-// Nueva función para descargar la paleta como CSS
+// Función para descargar la paleta como CSS
 function downloadPaletteAsCSS() {
     const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
     const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
@@ -386,7 +385,7 @@ function downloadPaletteAsCSS() {
     window.URL.revokeObjectURL(url);
 }
 
-// Nueva función para descargar la paleta como SCSS
+// Función para descargar la paleta como SCSS
 function downloadPaletteAsSCSS() {
     const selectedColorDiv = document.getElementById('selectedColor').querySelector('.color-box');
     const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
@@ -451,11 +450,79 @@ document.getElementById('downloadJsonBtn').addEventListener('click', function ()
     downloadPaletteAsJSON();
 });
 
-// Eventos para los botones de descarga
 document.getElementById('downloadCssBtn').addEventListener('click', function () {
     downloadPaletteAsCSS();
 });
 
 document.getElementById('downloadScssBtn').addEventListener('click', function () {
     downloadPaletteAsSCSS();
+});
+
+// Variables para rastrear el estado del acordeón y el tamaño de pantalla previo
+let isAccordionManuallyToggled = false;
+let previousScreenSize = window.matchMedia("(min-width: 1025px)").matches ? 'large' : 'small';
+
+// Inicializa la paleta con el color por defecto al cargar la página
+document.addEventListener('DOMContentLoaded', function () {
+    const defaultColor = document.getElementById('colorPicker').getAttribute('value') || '#8a42fb';
+    const defaultAmount = parseInt(document.getElementById('colorAmount').value);
+    const defaultStep = parseInt(document.getElementById('luminosityStep').value);
+    updateColors(defaultColor, defaultAmount, defaultStep);
+    document.getElementById('hexInput').value = defaultColor;
+
+    // Inicializar el estado del acordeón según el tamaño de la pantalla
+    const toggleButton = document.querySelector('.settings__toggle');
+    const content = document.getElementById('settings-content');
+    const isLargeScreen = window.matchMedia("(min-width: 1025px)").matches;
+
+    if (isLargeScreen) {
+        toggleButton.setAttribute('aria-expanded', 'true');
+        content.classList.add('settings__content--expanded');
+    } else {
+        toggleButton.setAttribute('aria-expanded', 'false');
+        content.classList.remove('settings__content--expanded');
+    }
+});
+
+// Añadir evento para el acordeón de la sección Settings
+document.querySelector('.settings__toggle').addEventListener('click', function () {
+    const content = document.getElementById('settings-content');
+    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+    // Marcar que el usuario ha interactuado manualmente con el acordeón
+    isAccordionManuallyToggled = true;
+
+    // Alternar estado del acordeón
+    this.setAttribute('aria-expanded', !isExpanded);
+    content.classList.toggle('settings__content--expanded');
+});
+
+// Soporte para tecla Enter o Espacio en el botón del acordeón (accesibilidad)
+document.querySelector('.settings__toggle').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        this.click();
+    }
+});
+
+// Manejar cambios de resolución
+window.addEventListener('resize', function () {
+    const toggleButton = document.querySelector('.settings__toggle');
+    const content = document.getElementById('settings-content');
+    const isLargeScreen = window.matchMedia("(min-width: 1025px)").matches;
+    const currentScreenSize = isLargeScreen ? 'large' : 'small';
+
+    // Solo ajustar el estado si el tamaño de pantalla ha cruzado el umbral (de grande a pequeño o viceversa)
+    if (currentScreenSize !== previousScreenSize && !isAccordionManuallyToggled) {
+        if (isLargeScreen) {
+            toggleButton.setAttribute('aria-expanded', 'true');
+            content.classList.add('settings__content--expanded');
+        } else {
+            toggleButton.setAttribute('aria-expanded', 'false');
+            content.classList.remove('settings__content--expanded');
+        }
+    }
+
+    // Actualizar el tamaño de pantalla previo
+    previousScreenSize = currentScreenSize;
 });
