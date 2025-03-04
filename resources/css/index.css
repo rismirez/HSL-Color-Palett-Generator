@@ -142,6 +142,7 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 16px;
+    align-items: center;
 }
 
 .button-group__generate {
@@ -180,7 +181,7 @@ body {
 
 .button--outline {
     background-color: transparent;
-    border: solid 2px var(--amethist-400);
+    border: none;
     color: var(--amethist-400);
     transition: all 250ms;
 }
@@ -309,9 +310,8 @@ a:hover {
 }
 
 .colors__download {
-    margin-top: 40px;
+    margin-top: 24px;
     display: flex;
-    gap: 8px;
     flex-wrap: wrap;
 }
 

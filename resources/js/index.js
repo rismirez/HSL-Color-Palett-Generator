@@ -60,6 +60,9 @@ function updateColors(hexColor, amount, step) {
     displayColors(hslColor, hexColor, amount, step);
     document.getElementById('colorAmount').value = amount;
     document.getElementById('hexInput').value = hexColor;
+
+    // Actualizar la URL compartible internamente
+    generateShareableUrl(hexColor, amount, step);
 }
 
 // Convierte un color HEX a HSL
@@ -164,6 +167,30 @@ function copyToClipboard(text) {
     document.execCommand("copy");
     document.body.removeChild(tempInput);
     alert("Hex color copied successfully! 🎨");
+}
+
+// Función para copiar la URL compartible al portapapeles
+function copyShareUrlToClipboard() {
+    const hexColor = document.getElementById('hexInput').value;
+    const amount = parseInt(document.getElementById('colorAmount').value);
+    const step = parseInt(document.getElementById('luminosityStep').value);
+    const shareUrl = generateShareableUrl(hexColor, amount, step);
+
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = shareUrl;
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("Shareable URL copied successfully! 🔗");
+}
+
+// Genera la URL compartible y la devuelve
+function generateShareableUrl(hexColor, amount, step) {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const cleanHex = hexColor.replace('#', ''); // Quitamos el # para la URL
+    const queryParams = `?color=${cleanHex}&tones=${amount}&step=${step}`;
+    return `${baseUrl}${queryParams}`;
 }
 
 // Genera el HTML para mostrar un color en la paleta
@@ -458,17 +485,48 @@ document.getElementById('downloadScssBtn').addEventListener('click', function ()
     downloadPaletteAsSCSS();
 });
 
+// Evento para copiar la URL compartible
+document.getElementById('copyShareUrlBtn').addEventListener('click', function () {
+    copyShareUrlToClipboard();
+});
+
 // Variables para rastrear el estado del acordeón y el tamaño de pantalla previo
 let isAccordionManuallyToggled = false;
 let previousScreenSize = window.matchMedia("(min-width: 1025px)").matches ? 'large' : 'small';
 
-// Inicializa la paleta con el color por defecto al cargar la página
+// Inicializa la paleta con el color por defecto o los parámetros de la URL al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
-    const defaultColor = document.getElementById('colorPicker').getAttribute('value') || '#8a42fb';
-    const defaultAmount = parseInt(document.getElementById('colorAmount').value);
-    const defaultStep = parseInt(document.getElementById('luminosityStep').value);
+    // Leer parámetros de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const colorFromUrl = urlParams.get('color');
+    const tonesFromUrl = parseInt(urlParams.get('tones'));
+    const stepFromUrl = parseInt(urlParams.get('step'));
+
+    let defaultColor = document.getElementById('colorPicker').getAttribute('value') || '#8a42fb';
+    let defaultAmount = parseInt(document.getElementById('colorAmount').value);
+    let defaultStep = parseInt(document.getElementById('luminosityStep').value);
+
+    // Si hay parámetros en la URL, usarlos
+    if (colorFromUrl && tonesFromUrl && stepFromUrl) {
+        defaultColor = `#${colorFromUrl}`;
+        defaultAmount = tonesFromUrl;
+        defaultStep = stepFromUrl;
+
+        // Validar los valores de tones y step para que estén dentro de los rangos permitidos
+        defaultAmount = Math.min(Math.max(defaultAmount, 1), 10);
+        defaultStep = Math.min(Math.max(defaultStep, 1), 20);
+
+        // Actualizar los valores en los inputs
+        document.getElementById('colorPicker').value = defaultColor;
+        document.getElementById('hexInput').value = defaultColor;
+        document.getElementById('colorAmount').value = defaultAmount;
+        document.getElementById('colorAmountText').innerText = defaultAmount;
+        document.getElementById('luminosityStep').value = defaultStep;
+        document.getElementById('luminosityStepText').innerText = defaultStep;
+    }
+
+    // Generar la paleta con los valores iniciales
     updateColors(defaultColor, defaultAmount, defaultStep);
-    document.getElementById('hexInput').value = defaultColor;
 
     // Inicializar el estado del acordeón según el tamaño de la pantalla
     const toggleButton = document.querySelector('.settings__toggle');
