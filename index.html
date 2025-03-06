@@ -10,6 +10,9 @@
 </head>
 
 <body>
+    <!-- Contenedor para el toast -->
+    <div id="toast" class="toast"></div>
+
     <main class="main">
         <header class="header">
             <h1 class="header__title">HSL Color Palette Generator</h1>
@@ -20,7 +23,7 @@
                 <div class="color-picker">
                     <div class="color-picker__title">
                         <h3>Select color</h3>
-                        <small>Enter a hex color or pick one from the color picker.</small>
+                        <small>Enter a hex color or pick one from the color picker</small>
                     </div>
                     <div class="color-picker__controls">
                         <input type="text" id="hexInput" class="color-picker__input" placeholder="Hexadecimal color code" onclick="addDefaultCharacter()">
@@ -128,7 +131,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                     <path d="M16.5 3C19.5376 3 22 5.5 22 9C22 16 14.5 20 12 21.5C9.5 20 2 16 2 9C2 5.5 4.5 3 7.5 3C9.35997 3 11 4 12 5C13 4 14.64 3 16.5 3Z"></path>
                 </svg> 
-                by Rismirez.
+                by <a href="https://www.rismirez.com/" target="_blank" rel="noopener noreferrer" class="rismirez">Rismirez</a>
             </p>
         </footer>
     </main>

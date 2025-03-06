@@ -42,9 +42,17 @@ function applyHexColor() {
     const currentAmount = parseInt(document.getElementById('colorAmount').value);
     const currentStep = parseInt(document.getElementById('luminosityStep').value);
 
+    // Añadir '#' si no está presente
+    if (hexValue && !hexValue.startsWith('#')) {
+        hexValue = '#' + hexValue;
+    }
+
+    // Validar el formato hexadecimal (6 caracteres después del #)
     if (!hexValue || !/^#[0-9A-F]{6}$/i.test(hexValue)) {
         hexValue = defaultColor;
-        document.getElementById('hexInput').value = hexValue;
+        document.getElementById('hexInput').value = hexValue.replace('#', ''); // Mostrar sin # en el input
+    } else {
+        document.getElementById('hexInput').value = hexValue.replace('#', ''); // Mostrar sin # en el input
     }
 
     updateColors(hexValue, currentAmount, currentStep);
@@ -59,7 +67,7 @@ function updateColors(hexColor, amount, step) {
     displaySelectedColor(hexColor, hslColor);
     displayColors(hslColor, hexColor, amount, step);
     document.getElementById('colorAmount').value = amount;
-    document.getElementById('hexInput').value = hexColor;
+    document.getElementById('hexInput').value = hexColor.replace('#', ''); // Mostrar sin # en el input
 
     // Actualizar la URL compartible internamente
     generateShareableUrl(hexColor, amount, step);
@@ -166,7 +174,7 @@ function copyToClipboard(text) {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-    alert("Hex color copied successfully! 🎨");
+    showToast("Hex color copied successfully! 🎨");
 }
 
 // Función para copiar la URL compartible al portapapeles
@@ -182,7 +190,7 @@ function copyShareUrlToClipboard() {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-    alert("Shareable URL copied successfully! 🔗");
+    showToast("Shareable URL copied successfully! 🔗");
 }
 
 // Genera la URL compartible y la devuelve
@@ -204,7 +212,7 @@ function getColorBoxHTML(hex, hsl, textColor) {
             </div>`;
 }
 
-// Añade automáticamente el carácter '#' al input si el usuario olvida ponerlo
+// Añade automáticamente el carácter '#' al input si el usuario olvida ponerlo (opcional, ya manejado en applyHexColor)
 function addDefaultCharacter() {
     const input = document.getElementById("hexInput");
     if (!input.value.startsWith("#")) {
@@ -225,7 +233,7 @@ function updateWithRandomColor() {
     const currentStep = parseInt(document.getElementById('luminosityStep').value);
     updateColors(randomColor, currentAmount, currentStep);
     document.getElementById('colorPicker').value = randomColor;
-    document.getElementById('hexInput').value = randomColor;
+    document.getElementById('hexInput').value = randomColor.replace('#', ''); // Mostrar sin # en el input
 }
 
 // Función para descargar la paleta como SVG con fuente monospace
@@ -378,27 +386,54 @@ function downloadPaletteAsCSS() {
     const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
     const darkerColorsDiv = document.getElementById('darkerColors').querySelectorAll('.color-box');
 
-    const selectedColorHex = selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', '');
-    const lighterColorsHex = Array.from(lighterColorsDiv).map(div => div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''));
-    const darkerColorsHex = Array.from(darkerColorsDiv).map(div => div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''));
+    const selectedColor = {
+        hex: selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: selectedColorDiv.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    };
+    const lighterColors = Array.from(lighterColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
+    const darkerColors = Array.from(darkerColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
 
     let cssContent = `:root {\n`;
-    cssContent += `  --selected-color: ${selectedColorHex};\n`;
-    lighterColorsHex.forEach((hex, index) => {
-        cssContent += `  --lighter-color-${index + 1}: ${hex};\n`;
+    cssContent += `  /* hex color */\n`;
+    cssContent += `  --selected-color-hex: ${selectedColor.hex};\n`;
+    lighterColors.forEach((color, index) => {
+        cssContent += `  --lighter-color-${index + 1}-hex: ${color.hex};\n`;
     });
-    darkerColorsHex.forEach((hex, index) => {
-        cssContent += `  --darker-color-${index + 1}: ${hex};\n`;
+    darkerColors.forEach((color, index) => {
+        cssContent += `  --darker-color-${index + 1}-hex: ${color.hex};\n`;
+    });
+    cssContent += `\n  /* hsl color */\n`;
+    cssContent += `  --selected-color-hsl: ${selectedColor.hsl};\n`;
+    lighterColors.forEach((color, index) => {
+        cssContent += `  --lighter-color-${index + 1}-hsl: ${color.hsl};\n`;
+    });
+    darkerColors.forEach((color, index) => {
+        cssContent += `  --darker-color-${index + 1}-hsl: ${color.hsl};\n`;
     });
     cssContent += `}\n\n`;
 
-    cssContent += `/* Ejemplos de uso */\n`;
-    cssContent += `.bg-selected { background-color: var(--selected-color); }\n`;
-    lighterColorsHex.forEach((_, index) => {
-        cssContent += `.bg-lighter-${index + 1} { background-color: var(--lighter-color-${index + 1}); }\n`;
+    cssContent += `/* Examples of use */\n`;
+    cssContent += `/* Using hex variables */\n`;
+    cssContent += `.bg-selected-hex { background-color: var(--selected-color-hex); }\n`;
+    lighterColors.forEach((_, index) => {
+        cssContent += `.bg-lighter-${index + 1}-hex { background-color: var(--lighter-color-${index + 1}-hex); }\n`;
     });
-    darkerColorsHex.forEach((_, index) => {
-        cssContent += `.bg-darker-${index + 1} { background-color: var(--darker-color-${index + 1}); }\n`;
+    darkerColors.forEach((_, index) => {
+        cssContent += `.bg-darker-${index + 1}-hex { background-color: var(--darker-color-${index + 1}-hex); }\n`;
+    });
+    cssContent += `\n/* Using hsl variables */\n`;
+    cssContent += `.bg-selected-hsl { background-color: var(--selected-color-hsl); }\n`;
+    lighterColors.forEach((_, index) => {
+        cssContent += `.bg-lighter-${index + 1}-hsl { background-color: var(--lighter-color-${index + 1}-hsl); }\n`;
+    });
+    darkerColors.forEach((_, index) => {
+        cssContent += `.bg-darker-${index + 1}-hsl { background-color: var(--darker-color-${index + 1}-hsl); }\n`;
     });
 
     const blob = new Blob([cssContent], { type: 'text/css' });
@@ -418,26 +453,53 @@ function downloadPaletteAsSCSS() {
     const lighterColorsDiv = document.getElementById('lighterColors').querySelectorAll('.color-box');
     const darkerColorsDiv = document.getElementById('darkerColors').querySelectorAll('.color-box');
 
-    const selectedColorHex = selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', '');
-    const lighterColorsHex = Array.from(lighterColorsDiv).map(div => div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''));
-    const darkerColorsHex = Array.from(darkerColorsDiv).map(div => div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''));
+    const selectedColor = {
+        hex: selectedColorDiv.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: selectedColorDiv.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    };
+    const lighterColors = Array.from(lighterColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
+    const darkerColors = Array.from(darkerColorsDiv).map(div => ({
+        hex: div.querySelector('div:nth-child(3)').textContent.replace('HEX: ', ''),
+        hsl: div.querySelector('div:nth-child(2)').textContent.replace('HSL: ', '')
+    }));
 
-    let scssContent = `$selected-color: ${selectedColorHex};\n`;
-    lighterColorsHex.forEach((hex, index) => {
-        scssContent += `$lighter-color-${index + 1}: ${hex};\n`;
+    let scssContent = `/* hex color */\n`;
+    scssContent += `$selected-color-hex: ${selectedColor.hex};\n`;
+    lighterColors.forEach((color, index) => {
+        scssContent += `$lighter-color-${index + 1}-hex: ${color.hex};\n`;
     });
-    darkerColorsHex.forEach((hex, index) => {
-        scssContent += `$darker-color-${index + 1}: ${hex};\n`;
+    darkerColors.forEach((color, index) => {
+        scssContent += `$darker-color-${index + 1}-hex: ${color.hex};\n`;
+    });
+    scssContent += `\n/* hsl color */\n`;
+    scssContent += `$selected-color-hsl: ${selectedColor.hsl};\n`;
+    lighterColors.forEach((color, index) => {
+        scssContent += `$lighter-color-${index + 1}-hsl: ${color.hsl};\n`;
+    });
+    darkerColors.forEach((color, index) => {
+        scssContent += `$darker-color-${index + 1}-hsl: ${color.hsl};\n`;
     });
     scssContent += `\n`;
 
-    scssContent += `// Ejemplos de uso\n`;
-    scssContent += `.bg-selected { background-color: $selected-color; }\n`;
-    lighterColorsHex.forEach((_, index) => {
-        scssContent += `.bg-lighter-${index + 1} { background-color: $lighter-color-${index + 1}; }\n`;
+    scssContent += `// Examples of use\n`;
+    scssContent += `// Using hex variables\n`;
+    scssContent += `.bg-selected-hex { background-color: $selected-color-hex; }\n`;
+    lighterColors.forEach((_, index) => {
+        scssContent += `.bg-lighter-${index + 1}-hex { background-color: $lighter-color-${index + 1}-hex; }\n`;
     });
-    darkerColorsHex.forEach((_, index) => {
-        scssContent += `.bg-darker-${index + 1} { background-color: $darker-color-${index + 1}; }\n`;
+    darkerColors.forEach((_, index) => {
+        scssContent += `.bg-darker-${index + 1}-hex { background-color: $darker-color-${index + 1}-hex; }\n`;
+    });
+    scssContent += `\n// Using hsl variables\n`;
+    scssContent += `.bg-selected-hsl { background-color: $selected-color-hsl; }\n`;
+    lighterColors.forEach((_, index) => {
+        scssContent += `.bg-lighter-${index + 1}-hsl { background-color: $lighter-color-${index + 1}-hsl; }\n`;
+    });
+    darkerColors.forEach((_, index) => {
+        scssContent += `.bg-darker-${index + 1}-hsl { background-color: $darker-color-${index + 1}-hsl; }\n`;
     });
 
     const blob = new Blob([scssContent], { type: 'text/scss' });
@@ -490,6 +552,25 @@ document.getElementById('copyShareUrlBtn').addEventListener('click', function ()
     copyShareUrlToClipboard();
 });
 
+// Función para mostrar el toast
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.remove('hide');
+    toast.classList.add('show');
+
+    // Ocultar el toast después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+    }, 3000);
+
+    // Asegurarse de que el toast se elimine de la pantalla después de la animación
+    setTimeout(() => {
+        toast.classList.remove('hide');
+    }, 3300); // 300ms de transición + 3000ms de duración
+}
+
 // Variables para rastrear el estado del acordeón y el tamaño de pantalla previo
 let isAccordionManuallyToggled = false;
 let previousScreenSize = window.matchMedia("(min-width: 1025px)").matches ? 'large' : 'small';
@@ -518,7 +599,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Actualizar los valores en los inputs
         document.getElementById('colorPicker').value = defaultColor;
-        document.getElementById('hexInput').value = defaultColor;
+        document.getElementById('hexInput').value = defaultColor.replace('#', ''); // Mostrar sin # en el input
         document.getElementById('colorAmount').value = defaultAmount;
         document.getElementById('colorAmountText').innerText = defaultAmount;
         document.getElementById('luminosityStep').value = defaultStep;
