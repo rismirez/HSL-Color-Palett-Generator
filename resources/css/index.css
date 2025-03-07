@@ -22,7 +22,6 @@ body {
     margin: 0 5rem;
 }
 
-/* Bloque principal */
 .main {
     max-width: 93.75rem;
     display: grid;
@@ -38,7 +37,6 @@ body {
     margin: 0 auto;
 }
 
-/* Bloque Header */
 .header {
     grid-area: header;
     display: flex;
@@ -61,17 +59,8 @@ body {
     font-size: 1rem;
 }
 
-/* Bloque Aside */
 .aside {
     grid-area: aside;
-}
-
-.aside__select-color {
-    /* No necesita estilos adicionales por ahora */
-}
-
-.color-picker {
-    /* Estilos del bloque color-picker */
 }
 
 .color-picker__title {
@@ -195,10 +184,6 @@ body {
     gap: 0.125rem;
 }
 
-.aside__settings {
-    /* No necesita estilos adicionales por ahora */
-}
-
 .settings__title {
     margin-bottom: 1.5rem;
 }
@@ -232,9 +217,6 @@ a:hover {
     color: var(--amethist-400);
 }
 
-
-
-/* Bloque Article */
 .article {
     grid-area: article;
     background-color: white;
@@ -317,7 +299,7 @@ a:hover {
     flex-wrap: wrap;
 }
 
-/* Bloque Footer */
+
 .footer {
     grid-area: footer;
 }
@@ -341,7 +323,6 @@ a:hover {
     text-decoration-style: dotted;
 }
 
-/* Estilos generales */
 h1, h2, h3, h4 {
     font-weight: 400;
     margin: 0;
@@ -414,7 +395,7 @@ input[type=range]::-webkit-slider-runnable-track {
     background: rgba(0, 0, 0, 0);
 }
 
-/* Estilos para el acordeón */
+
 .settings__toggle {
     display: flex;
     justify-content: space-between;
@@ -439,29 +420,25 @@ input[type=range]::-webkit-slider-runnable-track {
     transition: transform 0.3s ease;
 }
 
-/* Estado expandido: rotar el chevron hacia arriba */
 .settings__toggle[aria-expanded="true"] .settings__chevron {
     transform: rotate(180deg);
 }
 
-/* Por defecto, el contenido está colapsado */
 .settings__content {
     display: none;
 }
 
-/* Estado expandido: mostrar el contenido */
 .settings__content--expanded {
     display: block;
 }
 
-/* Ajustar el margen del título para que no se superponga con el chevron */
+
 @media all and (max-width: 64rem) {
     .settings__title {
         margin-bottom: 0;
     }
 }
 
-/* Media Queries */
 @media all and (max-width: 90rem) {
     body {
         margin: 0 3rem;
@@ -542,7 +519,6 @@ input[type=range]::-webkit-slider-runnable-track {
     }
 }
 
-/* Estilos para el Toast */
 .toast {
     position: fixed;
     top: 1.25rem;
@@ -566,17 +542,16 @@ input[type=range]::-webkit-slider-runnable-track {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
-    top: 2.5rem; /* Baja un poco para la animación */
+    top: 2.5rem;
 }
 
 .toast.hide {
     opacity: 0;
     visibility: hidden;
     transform: translateX(-50%) translateY(-1.25rem);
-    top: 1.25rem; /* Regresa a la posición inicial */
+    top: 1.25rem;
 }
 
-/* Media Queries para el toast */
 @media all and (max-width: 30rem) {
     .toast {
         width: 90%;
@@ -587,44 +562,41 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .visually-hidden {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    width: 0.0625rem;
+    height: 0.0625rem;
     padding: 0;
-    margin: -1px;
+    margin: -0.0625rem;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
 
-/* Estilo global para la selección de texto */
 ::selection {
-    background: var(--amethist-100); /* Color de fondo (púrpura basado en tu paleta) */
-    color: var(--amethist-500); /* Color del texto (blanco para contraste) */
+    background: var(--amethist-100);
+    color: var(--amethist-500);
 }
 
-/* Para Firefox */
 ::-moz-selection {
     background: var(--amethist-100);
     color: var(--amethist-500);
 }
 
-/* Personalización global de la barra de desplazamiento (WebKit) */
 ::-webkit-scrollbar {
-    width: 12px; /* Ancho de la barra */
-    height: 12px; /* Altura para desplazamiento horizontal (si aplica) */
+    width: 0.75rem;
+    height: 0.75rem;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg); /* Fondo claro */
-    border-radius: 6px; /* Bordes redondeados */
+    background: var(--bg);
+    border-radius: 0.375rem;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--amethist-300); /* Color del pulgar (púrpura de tu paleta) */
-    border-radius: 6px; /* Bordes redondeados */
-    transition: background 0.3s; /* Transición suave */
+    background: var(--amethist-300);
+    border-radius: 0.375rem;
+    transition: background 0.3s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--amethist-400); /* Variación más oscura al pasar el ratón */
+    background: var(--amethist-400);
 }
