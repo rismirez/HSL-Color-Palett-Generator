@@ -595,3 +595,36 @@ input[type=range]::-webkit-slider-runnable-track {
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
+/* Estilo global para la selección de texto */
+::selection {
+    background: var(--amethist-100); /* Color de fondo (púrpura basado en tu paleta) */
+    color: var(--amethist-500); /* Color del texto (blanco para contraste) */
+}
+
+/* Para Firefox */
+::-moz-selection {
+    background: var(--amethist-100);
+    color: var(--amethist-500);
+}
+
+/* Personalización global de la barra de desplazamiento (WebKit) */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra */
+    height: 12px; /* Altura para desplazamiento horizontal (si aplica) */
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg); /* Fondo claro */
+    border-radius: 6px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--amethist-300); /* Color del pulgar (púrpura de tu paleta) */
+    border-radius: 6px; /* Bordes redondeados */
+    transition: background 0.3s; /* Transición suave */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--amethist-400); /* Variación más oscura al pasar el ratón */
+}
