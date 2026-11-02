@@ -10,6 +10,7 @@
     <meta name="keywords" content="HSL color palette generator, HSL color palette, color generator, HSL generator, HSL color generator, design tool, palette generator, free palette creator 2025">
     <link rel="icon" href="resources/img/favicon.png" type="image/png" aria-hidden="true">
     <link href="resources/css/index.css" type="text/css" rel="stylesheet">
+    <script src="resources/js/preferences.js"></script>
     <meta name="author" content="Rismirez">
     <meta name="theme-color" content="#8a42fb">
     <meta name="google-site-verification" content="X1-xW1X7Q3WRGDCXWTqt34XZ1ILqfpPWwbpliJzEe6I" />
@@ -34,24 +35,68 @@
     <div id="toast" class="toast" role="alert" aria-live="polite" aria-atomic="true"></div>
     <main class="main" id="main-content" role="main">
         <header class="header">
-            <h1 class="header__title">HSL Color Palette Generator</h1>
-            <h2 class="header__subtitle">Create Beautiful Color 🎨 Schemes that works</h2>
+            <div class="header__brand">
+                <img class="header__logo" src="resources/img/favicon.png" alt="" width="40" height="40">
+                <div class="header__text">
+                    <h1 class="header__title">HSL Color Palette Generator</h1>
+                    <h2 class="header__subtitle" data-i18n="subtitle">Create Beautiful Color 🎨 Schemes that works</h2>
+                </div>
+            </div>
+            <div class="header__controls">
+                <div class="dropdown" id="langDropdown">
+                    <button type="button" class="dropdown__button" aria-haspopup="listbox" aria-expanded="false"
+                        aria-label="Language">
+                        <svg class="dropdown__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18"
+                            height="18" fill="currentColor" aria-hidden="true">
+                            <path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"></path>
+                        </svg>
+                        <span class="dropdown__value"></span>
+                        <svg class="dropdown__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="18" height="18" fill="currentColor" aria-hidden="true">
+                            <path d="M12 13.17l4.95-4.95 1.41 1.42L12 16 5.64 9.64l1.41-1.42z"></path>
+                        </svg>
+                    </button>
+                    <ul class="dropdown__menu" role="listbox" aria-label="Language" tabindex="-1" hidden>
+                        <li class="dropdown__option" role="option" data-value="es">Español</li>
+                        <li class="dropdown__option" role="option" data-value="en">English</li>
+                    </ul>
+                </div>
+                <div class="dropdown" id="themeDropdown">
+                    <button type="button" class="dropdown__button" aria-haspopup="listbox" aria-expanded="false"
+                        aria-label="Theme">
+                        <svg class="dropdown__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18"
+                            height="18" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18V4a8 8 0 010 16z"></path>
+                        </svg>
+                        <span class="dropdown__value"></span>
+                        <svg class="dropdown__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="18" height="18" fill="currentColor" aria-hidden="true">
+                            <path d="M12 13.17l4.95-4.95 1.41 1.42L12 16 5.64 9.64l1.41-1.42z"></path>
+                        </svg>
+                    </button>
+                    <ul class="dropdown__menu" role="listbox" aria-label="Theme" tabindex="-1" hidden>
+                        <li class="dropdown__option" role="option" data-value="auto" data-i18n="themeAuto">Auto</li>
+                        <li class="dropdown__option" role="option" data-value="dark" data-i18n="themeDark">Dark</li>
+                        <li class="dropdown__option" role="option" data-value="light" data-i18n="themeLight">Light</li>
+                    </ul>
+                </div>
+            </div>
         </header>
         <aside class="aside" role="complementary">
             <div class="aside__select-color">
                 <div class="color-picker" aria-labelledby="color-picker-title">
                     <div class="color-picker__title" id="color-picker-title">
-                        <h3>Select color</h3>
-                        <small>Enter a hex color or pick one from the color picker</small>
+                        <h3 data-i18n="selectColor">Select color</h3>
+                        <small data-i18n="selectColorHint">Enter a hex color or pick one from the color picker</small>
                     </div>
                     <div class="color-picker__controls">
                         <label for="hexInput" class="visually-hidden">Enter hexadecimal color code</label>
                         <input type="text" id="hexInput" class="color-picker__input"
-                            placeholder="Hexadecimal color code" aria-label="Hexadecimal color input"
+                            placeholder="Hexadecimal color code" data-i18n-placeholder="hexPlaceholder" aria-label="Hexadecimal color input"
                             aria-describedby="hex-input-desc" onclick="addDefaultCharacter()">
                         <span id="hex-input-desc" class="visually-hidden">Enter a 6-digit hexadecimal color code (e.g.,
                             c4d600) to generate a palette.</span>
-                        <div class="color-picker__separator" aria-hidden="true">or</div>
+                        <div class="color-picker__separator" aria-hidden="true" data-i18n="or">or</div>
                         <label for="colorPicker" class="visually-hidden">Pick a color</label>
                         <input type="color" id="colorPicker" value="#8a42fb" class="color-picker__picker"
                             aria-label="Color picker" aria-describedby="color-picker-desc">
@@ -62,7 +107,7 @@
                 <div class="button-group" role="group" aria-label="Color generation actions">
                     <div class="button-group__generate">
                         <button id="applyHex" class="button button--generate" aria-label="Generate color palette">
-                            Generate
+                            <span data-i18n="generate">Generate</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
                                 fill="currentColor" aria-hidden="true">
                                 <path
@@ -73,7 +118,7 @@
                     </div>
                     <div class="button-group__random">
                         <button id="randomColorBtn" class="button button--outline" aria-label="Generate random color">
-                            Random color
+                            <span data-i18n="random">Random color</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                                 fill="currentColor" aria-hidden="true">
                                 <path
@@ -88,7 +133,7 @@
             <div id="settings" class="aside__settings">
                 <button class="settings__toggle" aria-expanded="false" aria-controls="settings-content"
                     aria-label="Toggle settings panel">
-                    <h3 class="settings__title">Settings</h3>
+                    <h3 class="settings__title" data-i18n="settings">Settings</h3>
                     <svg class="settings__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
                         height="24" fill="currentColor" aria-hidden="true">
                         <path
@@ -98,26 +143,26 @@
                 </button>
                 <div id="settings-content" class="settings__content" role="region" aria-labelledby="settings-title">
                     <div class="settings__amount">
-                        <label for="colorAmount">Number of color tones: <span id="colorAmountText">5</span></label>
-                        <small>Number of colors per shade (Lighter and Darker)</small>
+                        <label for="colorAmount"><span data-i18n="tones">Number of color tones:</span> <span id="colorAmountText">5</span></label>
+                        <small data-i18n="tonesHint">Number of colors per shade (Lighter and Darker)</small>
                         <input type="range" id="colorAmount" min="1" max="10" value="5" step="1"
                             aria-label="Adjust number of color tones" aria-valuemin="1" aria-valuemax="10"
                             aria-valuenow="5">
                     </div>
                     <div class="settings__step">
-                        <label for="luminosityStep">Lightness step: <span
+                        <label for="luminosityStep"><span data-i18n="step">Lightness step:</span> <span
                                 id="luminosityStepText">5</span><span>%</span></label>
-                        <small>Percentage of Lightness</small>
+                        <small data-i18n="stepHint">Percentage of Lightness</small>
                         <input type="range" id="luminosityStep" min="1" max="20" value="5" step="1"
                             aria-label="Adjust lightness step" aria-valuemin="1" aria-valuemax="20" aria-valuenow="5">
                     </div>
                     <div class="settings__tips">
-                        <p>💡 Tips:</p>
-                        <p>If you increase the 'Number of color tones,' a smaller 'Lightness step' works best to keep
+                        <p data-i18n="tipsTitle">💡 Tips:</p>
+                        <p data-i18n="tipsBody">If you increase the 'Number of color tones,' a smaller 'Lightness step' works best to keep
                             the palette balanced.</p>
                         <p><a href="https://color.adobe.com/es/create/color-contrast-analyzer" target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label="Open WCAG 2.1 Color contrast analyzer in new tab">WCAG 2.1 Color contrast
+                                aria-label="Open WCAG 2.1 Color contrast analyzer in new tab" data-i18n="wcag">WCAG 2.1 Color contrast
                                 analyzer</a></p>
                     </div>
                 </div>
@@ -125,16 +170,16 @@
         </aside>
         <article class="article" role="article">
             <div id="colors" class="colors">
-                <h3 class="colors__title" id="colors-title">Selected Color</h3>
+                <h3 class="colors__title" id="colors-title" data-i18n="selected">Selected Color</h3>
                 <div id="selectedColor" class="colors__selected" role="region" aria-labelledby="colors-title"></div>
                 <div class="colors__container">
                     <div class="colors__column">
-                        <h3 class="colors__column__title">Lighter colors</h3>
+                        <h3 class="colors__column__title" data-i18n="lighter">Lighter colors</h3>
                         <div id="lighterColors" class="colors__generated" role="list" aria-label="Lighter color shades">
                         </div>
                     </div>
                     <div class="colors__column">
-                        <h3 class="colors__column__title">Darker colors</h3>
+                        <h3 class="colors__column__title" data-i18n="darker">Darker colors</h3>
                         <div id="darkerColors" class="colors__generated" role="list" aria-label="Darker color shades">
                         </div>
                     </div>
@@ -142,7 +187,7 @@
                 <div class="colors__download" role="group" aria-label="Download and share options">
                     <button id="copyShareUrlBtn" class="button button--outline"
                         aria-label="Copy shareable URL to clipboard">
-                        Share URL
+                        <span data-i18n="share">Share URL</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                             fill="currentColor" aria-hidden="true">
                             <path
@@ -151,7 +196,7 @@
                         </svg>
                     </button>
                     <button id="downloadSvgBtn" class="button button--outline" aria-label="Download palette as SVG">
-                        Download SVG
+                        <span data-i18n="dlSvg">Download SVG</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                             fill="currentColor" aria-hidden="true">
                             <path
@@ -160,7 +205,7 @@
                         </svg>
                     </button>
                     <button id="downloadTxtBtn" class="button button--outline" aria-label="Download palette as TXT">
-                        Download TXT
+                        <span data-i18n="dlTxt">Download TXT</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                             fill="currentColor" aria-hidden="true">
                             <path
@@ -169,7 +214,7 @@
                         </svg>
                     </button>
                     <button id="downloadJsonBtn" class="button button--outline" aria-label="Download palette as JSON">
-                        Download JSON
+                        <span data-i18n="dlJson">Download JSON</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                             fill="currentColor" aria-hidden="true">
                             <path
@@ -178,7 +223,7 @@
                         </svg>
                     </button>
                     <button id="downloadCssBtn" class="button button--outline" aria-label="Download palette as CSS">
-                        Download CSS
+                        <span data-i18n="dlCss">Download CSS</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                             fill="currentColor" aria-hidden="true">
                             <path
@@ -187,7 +232,7 @@
                         </svg>
                     </button>
                     <button id="downloadScssBtn" class="button button--outline" aria-label="Download palette as SCSS">
-                        Download SCSS
+                        <span data-i18n="dlScss">Download SCSS</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"
                             fill="currentColor" aria-hidden="true">
                             <path
@@ -199,14 +244,14 @@
             </div>
         </article>
         <footer class="footer" role="contentinfo">
-            <p class="footer__text">© 2025 | Made with
+            <p class="footer__text">© 2025 | <span data-i18n="madeWith">Made with</span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"
                     aria-hidden="true" aria-label="Heart icon">
                     <path
                         d="M16.5 3C19.5376 3 22 5.5 22 9C22 16 14.5 20 12 21.5C9.5 20 2 16 2 9C2 5.5 4.5 3 7.5 3C9.35997 3 11 4 12 5C13 4 14.64 3 16.5 3Z">
                     </path>
                 </svg>
-                by <a href="https://www.rismirez.com/" target="_blank" rel="noopener noreferrer" class="rismirez"
+                <span data-i18n="by">by</span> <a href="https://www.rismirez.com/" target="_blank" rel="noopener noreferrer" class="rismirez"
                     aria-label="Visit Rismirez website (opens in new tab)">Rismirez</a>
             </p>
         </footer>
