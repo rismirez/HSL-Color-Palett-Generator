@@ -174,7 +174,7 @@ function copyToClipboard(text) {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-    showToast("Hex color copied successfully! 🎨");
+    showToast(t('toastHex'));
 }
 
 // Función para copiar la URL compartible al portapapeles
@@ -190,7 +190,7 @@ function copyShareUrlToClipboard() {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-    showToast("Shareable URL copied successfully! 🔗");
+    showToast(t('toastUrl'));
 }
 
 // Genera la URL compartible y la devuelve
