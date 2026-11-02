@@ -29,7 +29,8 @@ export function dropdown({ options, value, onChange, iconName, ariaLabel, align 
 
     function renderOptions() {
         menu.replaceChildren(...items.map(o => {
-            const li = h('li', { class: 'dropdown__option', role: 'option', dataset: { value: o.value } }, labelOf(o));
+            const li = h('li', { class: 'dropdown__option', role: 'option', dataset: { value: o.value } },
+                h('span', { class: 'dropdown__check' }, icon('check', 14)), h('span', { class: 'dropdown__text' }, labelOf(o)));
             li.addEventListener('click', () => {
                 select(o.value);
                 close(true);
@@ -45,7 +46,7 @@ export function dropdown({ options, value, onChange, iconName, ariaLabel, align 
         valueEl.textContent = selected ? labelOf(selected) : '';
         optionEls().forEach((li, i) => {
             // Las etiquetas pueden ser funciones de traducción: se reevalúan al cambiar de idioma
-            if (items[i]) li.textContent = labelOf(items[i]);
+            if (items[i]) li.querySelector('.dropdown__text').textContent = labelOf(items[i]);
             const on = li.dataset.value === String(current);
             li.setAttribute('aria-selected', on);
             li.classList.toggle('dropdown__option--selected', on);

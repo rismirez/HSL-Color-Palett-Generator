@@ -366,7 +366,7 @@ export function mount(root) {
             ['SVG', () => downloadImage('svg')],
             ['PNG', () => downloadImage('png')],
             ['ASE', () => downloadFile('palette.ase', paletteToAse(p, lang()))],
-            ['GPL', () => downloadFile('palette.gpl', paletteToGpl(p, 'HSL Color Palette', lang()))]
+            ['GPL', () => downloadFile('palette.gpl', paletteToGpl(p, 'Magic Color Tools', lang()))]
         ];
     };
 

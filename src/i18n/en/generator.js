@@ -1,5 +1,5 @@
 export default {
-    'app.title': 'HSL Color Palette Generator',
+    'app.title': 'Magic Color Tools',
     'app.subtitle': 'Color Studio: generate, test and export palettes',
     'app.loading': 'Loading…',
     'app.error': 'This section could not be loaded. Please reload the page.',

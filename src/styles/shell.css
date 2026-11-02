@@ -12,7 +12,12 @@
 .header__controls { display: flex; align-items: center; gap: 0.75rem; }
 
 /* Navegación entre módulos */
-.nav { display: flex; gap: 0.375rem; padding: 0.375rem; overflow-x: auto; scrollbar-width: thin; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); }
+.nav {
+    position: sticky; top: 0.5rem; z-index: 15;
+    display: flex; gap: 0.375rem; padding: 0.375rem; overflow-x: auto; scrollbar-width: thin;
+    background: var(--header-bg); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: 0 4px 16px var(--shadow);
+}
 .nav__btn {
     display: inline-flex; align-items: center; gap: 0.5rem; height: 2.375rem; padding: 0 1rem; flex-shrink: 0;
     border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--muted); white-space: nowrap;
@@ -27,7 +32,8 @@
 
 /* Pie */
 .footer__text { display: flex; align-items: center; gap: 0.25rem; padding: 0.5rem 0 1.5rem; color: var(--muted); }
-.footer__heart { color: var(--accent); }
+.footer__heart { display: inline-flex; color: var(--accent); }
+.footer__heart .icon { fill: currentColor; }
 .rismirez { color: var(--text); text-decoration: none; }
 .rismirez:hover { color: var(--accent); text-decoration: underline dotted; }
 

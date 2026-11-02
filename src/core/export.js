@@ -186,7 +186,7 @@ export function paletteToSvg(palette, opts = {}, lang = 'en') {
         });
     });
     if (o.brand) {
-        body += `<text x="${o.width - fs}" y="${fs * 1.6}" text-anchor="end" fill="#000" fill-opacity=".45" font-family="system-ui, sans-serif" font-size="${Math.round(fs * 0.8)}">HSL Color Palette Generator</text>`;
+        body += `<text x="${o.width - fs}" y="${fs * 1.6}" text-anchor="end" fill="#000" fill-opacity=".45" font-family="system-ui, sans-serif" font-size="${Math.round(fs * 0.8)}">Magic Color Tools</text>`;
     }
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${o.width}" height="${o.height}" viewBox="0 0 ${o.width} ${o.height}">${body}</svg>\n`;
 }
@@ -220,7 +220,7 @@ export function paletteToCanvas(palette, opts = {}, lang = 'en') {
         ctx.fillStyle = 'rgba(0,0,0,.45)';
         ctx.font = `400 ${Math.round(fs * 0.8)}px system-ui, sans-serif`;
         ctx.textAlign = 'right';
-        ctx.fillText('HSL Color Palette Generator', o.width - fs, fs * 1.6);
+        ctx.fillText('Magic Color Tools', o.width - fs, fs * 1.6);
         ctx.textAlign = 'left';
     }
     return canvas;

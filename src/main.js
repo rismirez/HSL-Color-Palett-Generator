@@ -3,10 +3,12 @@ import './styles/base.css';
 import './styles/shell.css';
 import './styles/modules.css';
 import './styles/tools.css';
+import './styles/cursor.css';
 import { LANGUAGES, getLang, initLang, onLangChange, setLang, t } from './i18n/index.js';
 import { applyShareUrl, getState, loadState, setState, subscribe, MODULES } from './core/store.js';
 import { dropdown } from './ui/controls.js';
 import { h, icon } from './ui/dom.js';
+import { initIconAnimations } from './ui/icons.js';
 import { getTheme, initTheme, setTheme } from './ui/theme.js';
 
 const MODULE_ICONS = {
@@ -59,7 +61,7 @@ function buildHeader() {
     return h('header', { class: 'header' },
         h('div', { class: 'header__brand' },
             h('img', { class: 'header__logo', src: `${import.meta.env.BASE_URL}img/favicon.png`, alt: '', width: 40, height: 40 }),
-            h('div', { class: 'header__text' }, h('h1', { class: 'header__title' }, 'HSL Color Palette Generator'), subtitle)),
+            h('div', { class: 'header__text' }, h('h1', { class: 'header__title' }, 'Magic Color Tools'), subtitle)),
         h('div', { class: 'header__controls' }, langDd.el, themeDd.el));
 }
 
@@ -104,7 +106,7 @@ async function showModule(id) {
 const main = h('main', { class: 'main', id: 'main-content' });
 const footer = h('footer', { class: 'footer' },
     h('p', { class: 'footer__text' }, '© 2025 | ', h('span', { 'data-i18n': 'footer.made' }, t('footer.made')), ' ',
-        h('span', { class: 'footer__heart', 'aria-hidden': 'true' }, '♥'), ' ',
+        h('span', { class: 'footer__heart' }, icon('heart', 15)), ' ',
         h('span', { 'data-i18n': 'footer.by' }, t('footer.by')), ' ',
         h('a', { href: 'https://www.rismirez.com/', target: '_blank', rel: 'noopener noreferrer', class: 'rismirez' }, 'Rismirez')));
 
@@ -116,6 +118,7 @@ onLangChange(() => {
 document.title = t('app.title');
 app.append(h('div', { class: 'shell' }, buildHeader(), buildNav(), main, footer));
 showModule(getState().module);
+initIconAnimations();
 
 subscribe((state, topic) => {
     if (topic === 'module') {
