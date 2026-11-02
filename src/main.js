@@ -9,10 +9,11 @@ import { applyShareUrl, getState, loadState, setState, subscribe, MODULES } from
 import { dropdown } from './ui/controls.js';
 import { h, icon } from './ui/dom.js';
 import { initIconAnimations } from './ui/icons.js';
+import { applySeo, syncLangParam } from './core/seo.js';
 import { getTheme, initTheme, setTheme } from './ui/theme.js';
 
 const MODULE_ICONS = {
-    generator: 'palette', extractor: 'image', accessibility: 'access', preview: 'monitor', systems: 'layers', lab: 'flask'
+    generator: 'palette', extractor: 'image', accessibility: 'access', preview: 'monitor', systems: 'layers', lab: 'flask', about: 'info'
 };
 
 // Cada módulo se descarga la primera vez que se abre; después se conserva montado para no perder su estado.
@@ -22,7 +23,8 @@ const LOADERS = {
     accessibility: () => import('./modules/accessibility.js'),
     preview: () => import('./modules/preview.js'),
     systems: () => import('./modules/systems.js'),
-    lab: () => import('./modules/lab.js')
+    lab: () => import('./modules/lab.js'),
+    about: () => import('./modules/about.js')
 };
 
 initLang();
@@ -51,7 +53,6 @@ function buildHeader() {
         themeDd.refresh();
         themeDd.setAriaLabel(t('header.theme'));
         langDd.setAriaLabel(t('header.language'));
-        document.title = t('app.title');
         subtitle.textContent = t('app.subtitle');
         document.querySelector('.nav').setAttribute('aria-label', t('nav.label'));
         Object.entries(navButtons).forEach(([id, b]) => { b.label.textContent = t(`nav.${id}`); });
@@ -115,14 +116,21 @@ onLangChange(() => {
     footer.querySelector('[data-i18n="footer.by"]').textContent = t('footer.by');
 });
 
-document.title = t('app.title');
-app.append(h('div', { class: 'shell' }, buildHeader(), buildNav(), main, footer));
+onLangChange(() => {
+    applySeo(getState().module);
+    syncLangParam(getLang());
+});
+
+// replaceChildren sustituye el contenido estático de index.html pensado para rastreadores sin JavaScript
+app.replaceChildren(h('div', { class: 'shell' }, buildHeader(), buildNav(), main, footer));
 showModule(getState().module);
+applySeo(getState().module);
 initIconAnimations();
 
 subscribe((state, topic) => {
     if (topic === 'module') {
         showModule(state.module);
+        applySeo(state.module);
         const url = new URL(window.location.href);
         url.searchParams.set('m', state.module);
         history.replaceState(null, '', url);

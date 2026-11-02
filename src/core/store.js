@@ -3,7 +3,7 @@ import { clamp, normalizeHex } from './color.js';
 import { DEFAULT_PARAMS, HARMONIES, generatePalette } from './harmony.js';
 
 const STATE_KEY = 'hslcs.state.v2';
-export const MODULES = ['generator', 'extractor', 'accessibility', 'preview', 'systems', 'lab'];
+export const MODULES = ['generator', 'extractor', 'accessibility', 'preview', 'systems', 'lab', 'about'];
 
 export const DEFAULT_COLOR = '#8a42fb';
 

@@ -76,5 +76,9 @@ test('claves dinámicas cubiertas', () => {
     add('lab.shape.', ['circle', 'ellipse']);
     add('theme.', ['auto', 'dark', 'light']);
     add('tpl.', ['feature1', 'feature2', 'feature3']);
+    add('about.feature.', [1, 2, 3, 4, 5, 6, 7, 8]);
+    add('faq.q', [1, 2, 3, 4, 5, 6, 7]);
+    add('faq.a', [1, 2, 3, 4, 5, 6, 7]);
+    for (const m of MODULES) { need.push(`seo.module.${m}.title`, `seo.module.${m}.description`); }
     assert.deepEqual(need.filter(k => !(k in en)), []);
 });

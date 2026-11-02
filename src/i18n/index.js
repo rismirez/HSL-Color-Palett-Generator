@@ -17,7 +17,9 @@ function read(key) {
 }
 
 export function initLang() {
-    const stored = read('lang');
+    // ?lang=es|en (enlaces hreflang) tiene prioridad sobre la preferencia guardada
+    const fromUrl = new URLSearchParams(window.location.search).get('lang');
+    const stored = DICTIONARIES[fromUrl] ? fromUrl : read('lang');
     lang = DICTIONARIES[stored] ? stored : (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
     document.documentElement.lang = lang;
     return lang;

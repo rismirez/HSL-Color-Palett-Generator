@@ -23,6 +23,15 @@ Pendiente (fases 3 y 4): biblioteca personal, galería de inspiración, generaci
 
 Los iconos de la interfaz son los animados de [AnimateIcons](https://animateicons.in) (MIT, basados en Lucide), convertidos con `scripts/extract-icons.mjs` y reproducidos con la Web Animations API al pasar el ratón o enfocar con teclado; no se usa React. La rueda cromática es un icono propio en el mismo estilo. Licencias en [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
+## SEO, GEO y redes sociales
+
+- **Dominio**: se define una sola vez en `.env` (`VITE_SITE_URL`). Con él se generan canonical, `hreflang`, Open Graph, sitemap, robots, `llms.txt` y JSON-LD. **Cámbialo si publicas en otro dominio.**
+- **index.html**: título, descripción, canonical, hreflang (`?lang=en|es`), robots, Open Graph, X/Twitter Cards con imagen de 1200×630, PWA/iOS/Windows y JSON-LD (WebSite, WebApplication, Person y FAQPage). El contenido de respaldo para rastreadores sin JavaScript se inyecta en `#app` y la aplicación lo sustituye al arrancar.
+- **Dinámico**: al cambiar de idioma o de módulo se actualizan título, descripción, `og:*`, `twitter:*` y canonical (`src/core/seo.js`).
+- **GEO (motores generativos)**: `llms.txt`, un `robots.txt` que permite GPTBot, ClaudeBot, PerplexityBot, Google-Extended y similares, y una página «Acerca de» (pestaña junto al Laboratorio) con preguntas frecuentes que coincide con el JSON-LD. Los textos viven en `src/i18n/*/seo.js`.
+- **Ficheros generados en el build**: `robots.txt`, `sitemap.xml`, `llms.txt` y `manifest.webmanifest` (plantillas en `seo/`).
+- **Imágenes**: `scripts/make-social-images.mjs` genera la imagen social y los iconos PWA.
+
 ## Desarrollo / Development
 
 ```bash

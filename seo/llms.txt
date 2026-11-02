@@ -1,0 +1,33 @@
+# Magic Color Tools
+
+> %DESCRIPTION%
+
+Magic Color Tools is a free, browser-based color studio for designers and developers. It runs entirely on the client: there is no account, no server-side processing and images are never uploaded. The interface is available in English and Spanish. Every tool shares the same palette, so work done in one module carries over to the others.
+
+## Tools
+
+Each tool is a section of the same single-page app; open it directly with the `m` query parameter.
+
+- [Generator](%SITE_URL%/?m=generator): palettes of 1–16 colors with analogous, complementary, triadic, tetradic, monochromatic, split-complementary and square harmonies; color locking; editing in HEX, RGB, HSL, HSV, OKLCH and CMYK; 50–950 scales with perceptual interpolation; export to TXT, JSON, CSS, SCSS, SVG, PNG, ASE and GPL.
+- [Extractor](%SITE_URL%/?m=extractor): extracts dominant, secondary and accent colors from JPG, PNG or WebP images locally in the browser.
+- [Accessibility](%SITE_URL%/?m=accessibility): WCAG 2.x AA/AAA contrast checker, palette-wide contrast matrix, fixes that preserve hue, and protanopia, deuteranopia, tritanopia and achromatopsia simulation.
+- [Preview](%SITE_URL%/?m=preview): applies a palette to eight interface templates (dashboard, mobile app, corporate website, e-commerce, landing page, branding, poster, game UI) with editable color roles.
+- [Color Systems](%SITE_URL%/?m=systems): primitive and semantic design tokens, light and dark modes, interactive states; exports CSS variables, SCSS, JSON, Tailwind CSS and W3C Design Tokens.
+- [Color Lab](%SITE_URL%/?m=lab): color mixer (RGB, HSL, LAB, OKLCH), linear/radial/conic gradient studio, palette comparator and color blindness simulator for full interfaces.
+- [About and FAQ](%SITE_URL%/?m=about): what the app does, supported formats and exports, privacy, and answers to frequently asked questions.
+
+## Language
+
+- [English](%SITE_URL%/?lang=en)
+- [Español](%SITE_URL%/?lang=es)
+
+## Technical notes
+
+- OKLCH is the primary space for scales, mixing and contrast corrections; colors outside the sRGB gamut are reduced in chroma while keeping lightness and hue.
+- Contrast uses the WCAG 2.x relative luminance formula. Color blindness uses the Machado, Oliveira and Fernandes (2009) matrices in linear RGB.
+- Shareable URLs encode the palette, locked colors, harmony, module and scale.
+
+## Optional
+
+- [Sitemap](%SITE_URL%/sitemap.xml)
+- [Author](https://www.rismirez.com/)

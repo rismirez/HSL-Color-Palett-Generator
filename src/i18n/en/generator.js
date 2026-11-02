@@ -15,6 +15,7 @@ export default {
     'nav.preview': 'Preview',
     'nav.systems': 'Color Systems',
     'nav.lab': 'Color Lab',
+    'nav.about': 'About',
     'footer.made': 'Made with',
     'footer.by': 'by',
     'picker.area': 'Saturation and brightness',

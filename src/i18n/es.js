@@ -4,5 +4,6 @@ import access from './es/access.js';
 import preview from './es/preview.js';
 import systems from './es/systems.js';
 import lab from './es/lab.js';
+import seo from './es/seo.js';
 
-export default { ...generator, ...extractor, ...access, ...preview, ...systems, ...lab };
+export default { ...generator, ...extractor, ...access, ...preview, ...systems, ...lab, ...seo };
