@@ -1,0 +1,16 @@
+/* Cursor de varita mágica. El punto activo (6, 1) es la punta de la estrella. */
+html,
+body,
+html :is(a, button, summary, label, select, [role="button"], [role="option"], [role="radio"], .dropdown__option, .toggle,
+    input[type="range"], input[type="checkbox"], input[type="file"], .drop, .swatch, .step, .vars__swatch, .role-chip,
+    .matrix__cell, .prim__step, .lstrip__seg, .marker) {
+    cursor: url("/img/cursor-wand.png") 6 1, auto;
+    cursor: -webkit-image-set(url("/img/cursor-wand.png") 1x, url("/img/cursor-wand@2x.png") 2x) 6 1, auto;
+    cursor: image-set(url("/img/cursor-wand.png") 1x, url("/img/cursor-wand@2x.png") 2x) 6 1, auto;
+}
+
+/* Los controles de precisión y de texto conservan su cursor habitual */
+html :is(input[type="text"], input[type="number"], textarea, .cp__sv, .stage__canvas) { cursor: auto; }
+html :is(input[type="text"], input[type="number"], textarea) { cursor: text; }
+html :is(.cp__sv, .stage__canvas) { cursor: crosshair; }
+html :is(button, select, input):disabled { cursor: not-allowed; }
